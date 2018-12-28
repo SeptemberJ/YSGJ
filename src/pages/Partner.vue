@@ -3,7 +3,7 @@
 		<div class="Partner TextAlign_L">
 			<section class="investmentIntroduction sectionWrap">
 				<h1 class="columnTit">招商加盟</h1>
-				<p>上海鹰速国际货物运输有限公司诚邀物流行业服务企业及各界有识之士，共同推动互联网+物流协同管理普及，促进现代物流的快速发展，携手共创美好未来。XXX诚邀物流行业服务企业及各界有识之士，共同推动互联网+物流协同管理普及，促进现代物流的快速发展，携手共创美好未来。</p>
+				<p>无车承运诚邀物流行业服务企业及各界有识之士，共同推动互联网+物流协同管理普及，促进现代物流的快速发展，携手共创美好未来。XXX诚邀物流行业服务企业及各界有识之士，共同推动互联网+物流协同管理普及，促进现代物流的快速发展，携手共创美好未来。</p>
 				<p><strong>一、申请条件</strong></p>
 				<ul>
 					<li><p>对互联网+物流协同管理有强烈的认同感，并对行业前景有一定的了解；</p></li>
@@ -44,7 +44,7 @@ export default {
   name: 'Partner',
   data () {
     return {
-      PartnerCompanyList: ['https://s3-us-west-2.amazonaws.com/upscribe/customers/product-hunt.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/hubspot.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/duolingo.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/convertkit.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/nir-eyal.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/jake-knapp.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/geckoboard.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/intercom.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/doist.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/know-your-company.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/laravel.png', 'https://s3-us-west-2.amazonaws.com/upscribe/customers/muzli.png']
+      PartnerCompanyList: ['../../static/image/Partner_1.png', '../../static/image/Partner_2.png', '../../static/image/Partner_3.png', '../../static/image/Partner_4.png', '../../static/image/Partner_5.png', '../../static/image/Partner_6.png', '../../static/image/Partner_7.png', '../../static/image/Partner_8.png', '../../static/image/Partner_9.png', '../../static/image/Partner_10.png', '../../static/image/Partner_11.png', '../../static/image/Partner_12.png']
     }
   },
   components: {

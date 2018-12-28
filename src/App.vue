@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <div style="display: block;padding-bottom:5px;"><div class="HeaderBox"><Header/></div></div>
-    <div style="display: block"><router-view/></div>
-    <div style="display: block"><Footer/></div>
+    <div  :class="menuIndex == 1 ? 'TransparentBgBar' : 'WhiteBgBar'" style="display: block;padding-bottom:5px;position:fixed;top:0;left:0;z-index:99999;width: 100%"><div class="HeaderBox"><Header/></div></div>
+   <!--  <div  class="WhiteBgBar" style="display: block;padding-bottom:5px;position:fixed;top:0;left:0;z-index:99999;width: 100%"><div class="HeaderBox"><Header/></div></div> -->
+    <!--  <div :id="menuIndex == 1 ? 'headerBlockT' : 'headerBlockW'" class="TransparentBgBar" style="display: block;padding-bottom:5px;position:fixed;top:0;left:0;z-index:99999;width: 100%"><div class="HeaderBox"><Header/></div></div> -->
+    <div style="display: block;"><router-view/></div>
+    <div style="display: block;position:relative"><Footer/></div>
     <!-- <el-container>
       <el-header>
         <div class="HeaderBox"><Header/></div>
@@ -16,6 +18,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 export default {
@@ -23,6 +26,11 @@ export default {
   components: {
     Header,
     Footer
+  },
+  computed: {
+    ...mapState({
+      menuIndex: state => state.menuIndex
+    })
   }
 }
 </script>

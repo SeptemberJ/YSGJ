@@ -13,6 +13,11 @@ html, body{
 	padding: 0 !important;
 	height: 100%;
 }
+.wrap{
+	position: relative;
+  top: 60px;
+  /*margin-top: 60px;*/
+}
 /*html{
 	font-size: 62.5%;
 }*/
@@ -60,6 +65,14 @@ html, body{
 	html{
 		font-size: 32px;
 	}
+}
+.CursorPointer{
+	cursor: pointer;
+}
+hr{
+	border-color: #e0b32b;
+  border-width: 2px;
+  max-width: 50px;
 }
 p{
 	font-size: 0.75rem !important;
@@ -112,19 +125,73 @@ li p{
 .MarginTB_80{
 	margin: 5rem 0 !important;
 }
+.MarginT_80{
+	margin-top: 5rem !important;
+}
+.MarginB_80{
+	margin-bottom: 5rem !important;
+}
+.MarginTB_2{
+	margin: 2rem 0 !important;
+}
+
 /**/
+.WhiteBgBar{
+	background: #fff;
+}
+.WhiteBgBar .el-menu--horizontal>.el-menu-item{
+	color: #909399;
+}
+.WhiteBgBar .el-menu--horizontal>.el-submenu .el-submenu__title{
+	color: #909399;
+}
+.TransparentBgBar{
+	background: transparent;
+}
+.TransparentBgBar .el-menu--horizontal>.el-menu-item{
+	color: #fff;
+}
+.TransparentBgBar .el-menu--horizontal>.el-submenu .el-submenu__title{
+	color: #fff;
+}
+
+
+.el-dropdown-menu__item--divided:before, .el-menu, .el-menu--horizontal>.el-menu-item:not(.is-disabled):focus, .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .el-menu--horizontal>.el-submenu .el-submenu__title:hover{
+	background: transparent;
+}
 .el-menu--horizontal>.el-menu-item.is-active{
+	color: #000 !important;
 	border-bottom: 2px solid #e0b32b;
-	/*border-bottom: 2px solid #fff200;*/
 	font-weight: bold;
 	background: #e0b32b;
-	/*background: #fff200;*/
 }
 .el-menu--horizontal>.el-submenu.is-active .el-submenu__title{
+	color: #000 !important;
 	border-bottom: 2px solid #e0b32b;
 	font-weight: bold;
 	background: #e0b32b;
 }
 .el-menu-item:focus{
 	background-color: #e0b32b !important;
+}
+/*video*/
+.vjs_video_3-dimensions{
+	width: 100% !important;
+	height: 100% !important;
+}
+.video-js .vjs-big-play-button{
+	top: 45% !important;
+	left: 45% !important;
+	transform: translate(-50%，-50%) !important;
+}
+.video-js{
+	width: 100% !important;
+	height: 100% !important;
+}
+/*input*/
+.el-input__inner{
+	border: 0px solid #fff;
+}
+.el-message--warning{
+	z-index:9999999 !important;
 }

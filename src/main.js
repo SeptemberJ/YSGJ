@@ -10,13 +10,20 @@ import router from './router'
 // import iview from 'iview'
 // import 'iview/dist/styles/iview.css'
 // Vue.component('Carousel', Carousel)
+import VueVideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '../static/css/main.css'
 
 
+
 Vue.use(Vuex)
 Vue.use(ElementUI)
+Vue.use(VueVideoPlayer, /* {
+  options: global default options,
+  events: global videojs events
+} */)
 // Vue.use(iview)
 
 Vue.config.productionTip = false

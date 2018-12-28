@@ -1,14 +1,15 @@
 <template>
   <div>
     <el-row>
-      <el-col :xs="12" :sm="4">
+      <el-col :xs="12" :sm="3">
         <div class="grid-content bg-purple" style="overflow: hidden;text-align:left;">
           <img class="logoBox" src="../../static/image/Logo.png">
         </div>
       </el-col>
-      <el-col class="NavRightBoxP" :xs="12" :sm="20">
+      <el-col class="NavRightBoxP" :xs="12" :sm="21">
         <div class="grid-content bg-purple">
           <el-menu :default-active="menuIndex" class="el-menu-demo" mode="horizontal" @select="changeMenu">
+            <el-menu-item index="8" style="font-size:20px">运单</el-menu-item>
             <el-menu-item index="7" style="font-size:20px">注册</el-menu-item>
             <el-menu-item index="6" style="font-size:20px">登陆</el-menu-item>
             <el-menu-item index="5" style="font-size:20px">关于我们</el-menu-item>
@@ -28,7 +29,7 @@
       </el-col>
     </el-row>
     <!-- Mobile -->
-    <div class="MobileMenu"  style="margin-top: -10px;padding-top:0">
+    <div class="MobileMenu"  style="margin-top: -10px;padding-top:0;width: 100%;height:100%;background:#fff;">
       <el-collapse-transition>
         <div v-show="ifShowMenu">
           <el-row v-if="!ifShowSecond">
@@ -113,12 +114,16 @@ export default {
           this.changeCurMenu(key)
           break
         case '6':
-          window.location.href = 'http://www.jb51.net'
+          window.location.href = 'http://116.62.171.244:8082/yingsu/user.do?loginBusiness'
           // window.open('http://www.jb51.net')
           break
         case '7':
-          window.location.href = 'http://www.jb51.net'
+          window.location.href = 'http://116.62.171.244:8082/yingsu/user.do?register'
           // window.open('http://www.jb51.net')
+          break
+        case '8':
+          this.$router.push({name: 'Order'})
+          this.changeCurMenu(key)
           break
       }
     },
@@ -163,8 +168,9 @@ export default {
 
 <style scoped>
 .logoBox{
-  width: 140px;
-  height: 57px;
+  width: 100px;
+  height: 40px;
+  margin-top: 10px;
 }
 .NavRightBoxP{
   display: none;

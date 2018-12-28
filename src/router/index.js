@@ -6,6 +6,7 @@ import NewsList from '@/pages/News/NewsList'
 import NewsDetail from '@/pages/News//NewsDetail'
 import Partner from '@/pages/Partner'
 import AboutUs from '@/pages/AboutUs'
+import Order from '@/pages/Order/Order'
 
 Vue.use(VueRouter)
 
@@ -47,7 +48,26 @@ const router = new VueRouter({
       component: AboutUs,
       meta: {requireAuth: false}
     },
+    {
+      path: '/Order',
+      name: 'Order',
+      component: Order,
+      meta: {requireAuth: false}
+    },
     {path: '*', redirect: '/Home'}
   ]
+})
+// 登录控制
+router.beforeEach((to, from, next) => {
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+  // if (to.name === 'Home') {
+  //   document.documentElement.scrollTop = 0
+  //   document.body.scrollTop = 0
+  // } else {
+  //   document.documentElement.scrollTop = 1
+  //   document.body.scrollTop = 1
+  // }
+  next()
 })
 export default router

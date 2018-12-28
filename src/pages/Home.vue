@@ -1,11 +1,33 @@
 <template>
   <div id="Home">
     <CarouselCom/>
+    <!-- display info -->
+    <section class="MarginTB_80">
+      <el-row style="width:90%;height:300px;background:pink;margin-left:5%;">
+        <el-col :span="12">
+          <img style="width: 100%;" src="../../static/image/pc.png">
+        </el-col>
+        <el-col :span="12">
+        </el-col>
+      </el-row>
+    </section>
+    <!-- video -->
+    <section class="MarginTB_80">
+      <h1 class="columnTit">
+        <span>快速了解无车承运</span>
+        <img style="width: 80px;" src="https://www.ff.com/assets/img/diagonal_se_black.png">
+        <!-- <hr class="primary"> -->
+      </h1>
+
+      <video-player class="video-player-box" style="width: 80%;margin-left: 10%;"
+        ref="videoPlayer"
+        :options="playerOptions"/>
+    </section>
     <!-- section_cards -->
     <section class="section_cards MarginTB_80">
       <h1 class="columnTit">我们的优势</h1>
       <el-row>
-        <el-col class="cardItem" :sm="24" :md="8" v-for="(StrongItem, idx) in StrongthList" :key="idx">
+        <el-col :class="[idx == 0 ? 'cardItem wow rollIn' : (idx == 1 ? 'cardItem wow bounceInDown' : 'cardItem wow lightSpeedIn')]" :sm="24" :md="8" v-for="(StrongItem, idx) in StrongthList" :key="idx">
           <div class="grid-content bg-purple StrongItem">
             <el-card :body-style="{ padding: '0px' }">
               <div class="topImage" :style="{backgroundImage: 'url(' + StrongItem.img + ')'}"></div>
@@ -47,30 +69,6 @@
           </div>
         </el-col>
       </el-row>
-      <!-- <el-row type="flex" class="row-bg" justify="space-around">
-        <el-col :span="8" v-for="(CaseItem, idx) in CaseList1" :key="idx">
-          <div class="grid-content bg-purple caseWrap">
-            <img class="hoverImg" :src="CaseItem.img">
-            <div class="hoverMask">
-              <div class="discrimination">
-                <h2 class="project-title">{{CaseItem.title}}</h2>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row type="flex" class="row-bg" justify="space-around">
-        <el-col :span="8" v-for="(CaseItem, idx) in CaseList2" :key="idx">
-          <div class="grid-content bg-purple caseWrap">
-            <img class="hoverImg" :src="CaseItem.img">
-            <div class="hoverMask">
-              <div class="discrimination">
-                <h2 class="project-title">{{CaseItem.title}}</h2>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row> -->
     </section>
   </div>
 </template>
@@ -81,18 +79,28 @@ export default {
   name: 'Home',
   data () {
     return {
+      playerOptions: {
+        muted: true,
+        language: 'en',
+        playbackRates: [0.7, 1.0, 1.5, 2.0],
+        sources: [{
+          type: 'video/mp4',
+          src: 'https://videos.confidentcustomer.com/assets/ConfidentCustomer.mp4'
+        }],
+        poster: 'https://confidentcustomer.com/img/site/heading_bg.png'
+      },
       StrongthList: [
-        {title: '运力联合', content: '通过线上平台，协同运输和物流，上下服务生态，联合运力池', img: 'http://pic.qiantucdn.com/58pic/27/67/62/74t58PICC93_1024.jpg!/fw/1024/watermark/url/L2ltYWdlcy93YXRlcm1hcmsveGlhb3R1LnBuZw==/align/center/crop/0x1024a0a0'},
-        {title: '全程链接', content: '对传统物流流程全程优化，打造流畅高效的协同化运输', img: 'http://pic.qiantucdn.com/58pic/26/08/66/58bdc4d304b16_1024.jpg'},
-        {title: '可视运输', content: '管控每个运输环节，透明化调度，过程和行驶轨迹', img: 'http://scimg.dameigong.cn/b/20171027/20171027222017_35641.jpg'}
+        {title: '运力联合', content: '通过线上平台，协同运输和物流，上下服务生态，联合运力池', img: '../../static/image/Strongth_1.jpg'},
+        {title: '全程链接', content: '对传统物流流程全程优化，打造流畅高效的协同化运输', img: '../../static/image/Strongth_2.jpg'},
+        {title: '可视运输', content: '管控每个运输环节，透明化调度，过程和行驶轨迹', img: '../../static/image/Strongth_3.jpg'}
       ],
       CaseList: [
-        {title: '案例', img: 'http://www.meweidea.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBJUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--f388959c0ec7c5ccd3d2a47d49c388035065ff31/10.jpg'},
-        {title: '案例', img: 'http://www.meweidea.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBKQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0a8f67ab4c71789f727798eec8df862dbd1613f6/9-5.jpg'},
-        {title: '案例', img: 'http://www.meweidea.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBXQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c4126a32bf4170938d73705ab9a31b3e5f0a2e9a/2.jpg'},
-        {title: '案例', img: 'http://www.meweidea.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBZUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--49334eb997cbf4da92134ac5647627718198e6ad/15-2.jpg'},
-        {title: '案例', img: 'http://www.meweidea.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBSZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--006ff5a6aeb50056673b566a42b3830c5917ddfd/16.jpg'},
-        {title: '案例', img: 'http://www.meweidea.com/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBOQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--c2e3f7b6346bde464f4b2b1799f0c705ec6f221f/4.jpg'}
+        {title: '案例', img: '../../static/image/Case_1.jpg'},
+        {title: '案例', img: '../../static/image/Case_2.jpg'},
+        {title: '案例', img: '../../static/image/Case_3.jpg'},
+        {title: '案例', img: '../../static/image/Case_4.jpg'},
+        {title: '案例', img: '../../static/image/Case_5.jpg'},
+        {title: '案例', img: '../../static/image/Case_6.jpg'}
       ]
     }
   },
@@ -103,6 +111,21 @@ export default {
 </script>
 
 <style scoped>
+/*video*/
+.video-player-box{
+  height: 200px !important;
+}
+@media screen and (min-width: 768px) {
+  .video-player-box{
+    height: 400px !important;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .video-player-box{
+    height: 600px !important;
+  }
+}
+
 /*section_cards*/
 .section_cards {
   width: 100%;
@@ -149,7 +172,7 @@ export default {
 .ZSBox{
   width: 100%;
   display: block;
-  background-image: url(//d9hhrg4mnvzow.cloudfront.net/www.crazycall.com/call-center/cabed449-obrazek7.png);
+  background-image: url(../../static/image/ZSBox.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

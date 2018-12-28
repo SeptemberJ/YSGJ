@@ -7,9 +7,26 @@
     <!-- <link rel="icon" href="favicon.ico" type="image/x-icon" /> -->
     <!-- <link rel="shortcut icon" type="image/x-icon" href="https://blog.helloarron.com/favicon.ico"> -->
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+<script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/vue/2.5.21/vue.min.js"></script> -->
+    <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
     <title>鹰速国际</title>
   </head>
   <body>
     <div id="app"></div>
+    <script type="text/javascript">
+      new WOW().init();
+      window.onscroll = changeHeaderClass
+      function changeHeaderClass() {
+        var HeaderT = document.getElementsByClassName('TransparentBgBar')[0] || document.getElementsByClassName('WhiteBgBar')[0]
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+        if (scrollTop > 0) {
+          HeaderT.setAttribute('class', 'WhiteBgBar')
+        }
+        if (scrollTop == 0 && (window.location.hash === '#/Home')) {
+          HeaderT.setAttribute('class', 'TransparentBgBar')
+        }
+      }
+    </script>
   </body>
 </html>
