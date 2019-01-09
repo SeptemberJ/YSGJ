@@ -1,27 +1,107 @@
 <template>
   <div id="Home">
     <CarouselCom/>
-    <!-- display info -->
     <section class="MarginTB_80">
-      <el-row style="width:90%;height:300px;background:pink;margin-left:5%;">
-        <el-col :span="12">
-          <img style="width: 100%;" src="../../static/image/pc.png">
+    <!-- <section class="MarginTB_80" style="min-height: 400px;position:relative;background:url('../../static/image/ss2.jpg');overflow:hidden"> -->
+      <!-- <vue-particles
+        color="#fff"
+        :particleOpacity="0.7"
+        :particlesNumber="200"
+        shapeType="circle"
+        :particleSize="4"
+        linesColor="#fff"
+        :linesWidth="1"
+        :lineLinked="true"
+        :lineOpacity="0.4"
+        :linesDistance="150"
+        :moveSpeed="2"
+        :hoverEffect="true"
+        hoverMode="grab"
+        :clickEffect="true"
+        clickMode="push"
+        class="lizi"
+      >
+      </vue-particles> -->
+      <el-row class="Padding_1 MarginTB_5">
+        <el-col :sm="24" :md="14" style="height: 300px;">
+          <div style="width:90%;margin-left:10%;background:#fff;box-shadow:0 4px 80px -12px rgba(0,0,0,.1)">
+            <div style="background:#c7f2da;padding:20px 35px;color:#00c759">打造优质物流交易网络平台</div>
+            <div style="padding: 20px;">
+              <el-row class="Padding_1">
+                <el-col :span="8">
+                  <el-progress type="circle" :percentage="100" status="text" color="#8e71c7">
+                    <span class="circleSpan">60亿</span>
+                    <span class="circleSpan">扶贫资金</span>
+                  </el-progress>
+                </el-col>
+                <el-col :span="8">
+                  <el-progress type="circle" :percentage="100" status="text">
+                    <span class="circleSpan">3000+</span>
+                    <span class="circleSpan">物流车辆</span>
+                  </el-progress>
+                </el-col>
+                <el-col :span="8">
+                  <el-progress type="circle" :percentage="100" status="text" color="#f60">
+                    <span class="circleSpan">4500+</span>
+                    <span class="circleSpan">处理数据</span>
+                  </el-progress>
+                </el-col>
+              </el-row>
+            </div>
+          </div>
         </el-col>
-        <el-col :span="12">
+        <el-col :sm="24" :md="10" style="height: 300px;">
+          <img style="width: 300px; height:300px;" src="https://www.sendwyre.com/assets/images/onoff_illo.png">
+        </el-col>
+      </el-row>
+      <el-row class="Padding_1 MarginTB_5">
+        <el-col :sm="24" :md="10" style="height: 300px;">
+          <img style="width: 300px; height:300px;" src="https://www.sendwyre.com/assets/images/liquidity_illo.png">
+        </el-col>
+        <el-col :sm="24" :md="14" style="height: 300px;">
+          <div style="width:90%;margin-right:10%;background:#fff;box-shadow:0 4px 80px -12px rgba(0,0,0,.1)">
+            <div style="background:#c7f2da;padding:20px 35px;color:#00c759">全程协同、透明、高效</div>
+            <div style="padding: 20px;">
+              <el-row class="Padding_1">
+                <el-col :span="8">
+                  <el-progress type="circle" :percentage="100" status="text" color="#fcaf17">
+                    <span class="circleSpan">8000+</span>
+                    <span class="circleSpan">条线路</span>
+                  </el-progress>
+                </el-col>
+                <el-col :span="8">
+                  <el-progress type="circle" :percentage="100" status="text" color="#ea66a6">
+                    <span class="circleSpan">280+</span>
+                    <span class="circleSpan">城市覆盖</span>
+                  </el-progress>
+                </el-col>
+                <el-col :span="8">
+                  <el-progress type="circle" :percentage="100" status="text" color="#aa2166">
+                    <span class="circleSpan">26+</span>
+                    <span class="circleSpan">物流园区</span>
+                  </el-progress>
+                </el-col>
+              </el-row>
+            </div>
+          </div>
         </el-col>
       </el-row>
     </section>
     <!-- video -->
     <section class="MarginTB_80">
-      <h1 class="columnTit">
+      <!-- <h1 class="columnTit">
         <span>快速了解无车承运</span>
-        <img style="width: 80px;" src="https://www.ff.com/assets/img/diagonal_se_black.png">
-        <!-- <hr class="primary"> -->
-      </h1>
-
-      <video-player class="video-player-box" style="width: 80%;margin-left: 10%;"
+      </h1> -->
+      <el-row>
+        <el-col :span="24">
+          <video-player class="video-player-box" style="width: 80%;margin-left: 10%;"
         ref="videoPlayer"
         :options="playerOptions"/>
+        </el-col>
+        <!-- <el-col :span="10" class="TextAlign_L">
+          <h2>快速了解无车承运</h2>
+        </el-col> -->
+      </el-row>
     </section>
     <!-- section_cards -->
     <section class="section_cards MarginTB_80">
@@ -30,7 +110,7 @@
         <el-col :class="[idx == 0 ? 'cardItem wow rollIn' : (idx == 1 ? 'cardItem wow bounceInDown' : 'cardItem wow lightSpeedIn')]" :sm="24" :md="8" v-for="(StrongItem, idx) in StrongthList" :key="idx">
           <div class="grid-content bg-purple StrongItem">
             <el-card :body-style="{ padding: '0px' }">
-              <div class="topImage" :style="{backgroundImage: 'url(' + StrongItem.img + ')'}"></div>
+              <div class="topImage" :style="{backgroundImage: 'url(' + StrongItem.img + ')', backgroundPosition: 'center'}"></div>
               <div style="padding: 14px;">
                 <h2>{{StrongItem.title}}</h2>
                 <p>{{StrongItem.content}}</p>
@@ -124,6 +204,10 @@ export default {
   .video-player-box{
     height: 600px !important;
   }
+}
+.circleSpan{
+  display: block;
+  margin-bottom: 5px;
 }
 
 /*section_cards*/
@@ -270,4 +354,16 @@ export default {
   -webkit-transition: border 0.3s ease-out;
   transition: border 0.3s ease-out;
 }*/
+ .el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  margin: 0;
+}
+.el-carousel__item:nth-child(2n) {
+  background-color: #fff;
+}
+.el-carousel__item:nth-child(2n+1) {
+  background-color: #fff;
+}
 </style>

@@ -131,8 +131,14 @@ li p{
 .MarginB_80{
 	margin-bottom: 5rem !important;
 }
+.MarginTB_5{
+	margin: 5rem 0 !important;
+}
 .MarginTB_2{
 	margin: 2rem 0 !important;
+}
+.Padding_1{
+	padding: 1rem !important;
 }
 
 /**/
@@ -195,3 +201,4 @@ li p{
 .el-message--warning{
 	z-index:9999999 !important;
 }
+/*process*/

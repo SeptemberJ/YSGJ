@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'CarouselCom',
   data () {
@@ -45,6 +46,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'changeCurMenu'
+    ]),
     changeCarousel (idx) {
       this.selfAdaption(idx)
     },
@@ -64,6 +68,7 @@ export default {
         })
       } else {
         this.$router.push({name: 'Order', params: { keyword: this.SearchOrder }})
+        this.changeCurMenu(8)
       }
     }
   }
