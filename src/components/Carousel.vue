@@ -1,16 +1,16 @@
 <template>
-  <el-carousel :initial-index="CurIndex" :interval="2000" arrow="always" :autoplay="true" :height="carouseHeight" @change="changeCarousel">
+  <el-carousel :initial-index="CurIndex" :interval="2000" arrow="always" :autoplay="false" :height="carouseHeight" @change="changeCarousel">
     <el-carousel-item v-for="(Carousel, idx) in CarouselList" :key="idx">
       <img ref="carouselImg" :src="Carousel.img" style="width: 100%;">
     </el-carousel-item>
-    <el-row class="searchBox">
+   <!--  <el-row class="searchBox">
       <el-col :span="20">
         <div class="inputBlock">
           <el-input v-model="SearchOrder" clearable placeholder="请输入您要查询的运单号" style="border: 0px solid #fff !important;"></el-input>
         </div>
       </el-col>
       <el-col class="searchBt CursorPointer" :span="4"><div @click="ToSearch">查询</div></el-col>
-    </el-row>
+    </el-row> -->
   </el-carousel>
  <!--  <el-carousel :interval="4000" type="card" height="400px" style="margin-top:40px;">
     <el-carousel-item v-for="(Carousel, idx) in CarouselList" :key="idx">
@@ -27,37 +27,34 @@ export default {
     return {
       CurIndex: 0,
       SearchOrder: '',
-      carouseHeight: '584px',
+      carouseHeight: '293px',
       CarouselList: [
-        {'img': '../../static/image/Carousel_1.jpg'}, // http://www.kxtx.cn/images/banner_1-d4b2b813cc.png
-        {'img': '../../static/image/Carousel_2.jpg'},
-        {'img': '../../static/image/Carousel_3.jpg'}
+        {'img': '../../static/image/Carousel_4.jpg'}
       ]
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.selfAdaption(0)
-    }, 500)
+    // setTimeout(() => {
+    //   this.selfAdaption(0)
+    // }, 500)
   },
   created () {
-    window.onresize = () => {
-      this.selfAdaption(0)
-    }
+    // window.onresize = () => {
+    //   this.selfAdaption(0)
+    // }
   },
   methods: {
     ...mapActions([
       'changeCurMenu'
     ]),
     changeCarousel (idx) {
-      this.selfAdaption(idx)
+      // this.selfAdaption(idx)
     },
     selfAdaption (idx) {
       let windowWidth = document.documentElement.clientWidth
       let imgWidth = this.$refs.carouselImg[idx].width
       let imgHeight = this.$refs.carouselImg[idx].height
       let H = windowWidth * imgHeight / imgWidth
-      // alert(this.CurIndex)
       this.carouseHeight = `${H}px`
     },
     ToSearch () {

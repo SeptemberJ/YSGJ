@@ -13,7 +13,7 @@
             <el-menu-item index="7" style="font-size:20px">注册</el-menu-item>
             <el-menu-item index="6" style="font-size:20px">登陆</el-menu-item>
             <el-menu-item index="5" style="font-size:20px">关于我们</el-menu-item>
-            <el-menu-item index="4" style="font-size:20px">合作伙伴</el-menu-item>
+            <!-- <el-menu-item index="4" style="font-size:20px">合作伙伴</el-menu-item> -->
             <el-menu-item index="3" style="font-size:20px">资讯</el-menu-item>
             <el-submenu index="2">
               <template slot="title">产品与服务</template>
@@ -42,9 +42,9 @@
             <el-col :span="24">
               <div class="MenuItemM" @click="clickMenu('3')">资讯</div>
             </el-col>
-            <el-col :span="24">
+            <!-- <el-col :span="24">
               <div class="MenuItemM" @click="clickMenu('4')">合作伙伴</div>
-            </el-col>
+            </el-col> -->
             <el-col :span="24">
               <div class="MenuItemM" @click="clickMenu('5')">关于我们</div>
             </el-col>
@@ -114,11 +114,11 @@ export default {
           this.changeCurMenu(key)
           break
         case '6':
-          window.location.href = 'http://116.62.171.244:8082/yingsu/user.do?loginBusiness'
+          window.location.href = 'http://116.62.171.244:8082/order/#/Login'
           // window.open('http://www.jb51.net')
           break
         case '7':
-          window.location.href = 'http://116.62.171.244:8082/yingsu/user.do?register'
+          window.location.href = 'http://116.62.171.244:8082/order/#/Sign'
           // window.open('http://www.jb51.net')
           break
         case '8':

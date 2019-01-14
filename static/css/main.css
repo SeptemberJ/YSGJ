@@ -13,6 +13,9 @@ html, body{
 	padding: 0 !important;
 	height: 100%;
 }
+body{
+	min-width: 320px;
+}
 .wrap{
 	position: relative;
   top: 60px;

@@ -15,7 +15,6 @@ import 'video.js/dist/video-js.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '../static/css/main.css'
-import VueParticles from 'vue-particles'
 
 
 
@@ -25,7 +24,6 @@ Vue.use(VueVideoPlayer, /* {
   options: global default options,
   events: global videojs events
 } */)
-Vue.use(VueParticles)
 
 Vue.config.productionTip = false
 

@@ -1,7 +1,162 @@
 <template>
   <div id="Home">
     <CarouselCom/>
-    <section class="MarginTB_80">
+    <section>
+      <el-row>
+        <el-col :sm="24" :md="12" style="padding: 5px;">
+          <div class="searchBar">
+            <el-row>
+              <el-col :span="8">
+                <el-select v-model="fhPlace" placeholder="请选择起始地" size="small">
+                  <el-option
+                    v-for="(item, idx) in fhPlaceList"
+                    :key="idx"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="8">
+                <el-select v-model="shPlace" placeholder="请选择起始地" size="small">
+                  <el-option
+                    v-for="(item, idx) in shPlaceList"
+                    :key="idx"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="8" class="TextAlign_R">
+                <!-- <i class="el-icon-search"></i> -->
+                <el-button type="primary" icon="el-icon-search" size="small">搜索</el-button>
+              </el-col>
+            </el-row>
+          </div>
+          <div class="tableColumn">
+            <el-row>
+              <el-col :span="3">日期</el-col>
+              <el-col :span="3">货物</el-col>
+              <el-col :span="4">发货地</el-col>
+              <el-col :span="4">收货地</el-col>
+              <el-col :span="3">车辆</el-col>
+              <el-col :span="3">重量</el-col>
+              <el-col :span="3">手机</el-col>
+            </el-row>
+          </div>
+          <div class="orderMarquee" id="orderMarqueeL">
+            <div class="realList" id="realListL">
+              <el-row class="orderItem" v-for="(order, idx) in latestOrder" :key="idx">
+                <el-col :span="3">{{idx+1}}</el-col>
+                <!-- <el-col :span="3">{{order.dateTime}}</el-col> -->
+                <el-col :span="3">{{order.goods_name}}</el-col>
+                <el-col :span="4">{{order.sh_address}}</el-col>
+                <el-col :span="4">{{order.fh_address}}</el-col>
+                <el-col :span="3">{{order.car_type}}</el-col>
+                <el-col :span="3">{{order.weight}}</el-col>
+                <el-col :span="3">{{order.phone}}</el-col>
+              </el-row>
+            </div>
+            <div id="CopyListL"></div>
+          </div>
+        </el-col>
+        <!-- 司机 -->
+        <el-col :sm="24" :md="12"  style="padding: 5px;">
+           <div class="searchBar">
+            <el-row>
+              <el-col :span="8">
+                <el-select v-model="fhPlace" placeholder="请选择起始地" size="small">
+                  <el-option
+                    v-for="(item, idx) in fhPlaceList"
+                    :key="idx"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="8">
+                <el-select v-model="shPlace" placeholder="请选择起始地" size="small">
+                  <el-option
+                    v-for="(item, idx) in shPlaceList"
+                    :key="idx"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="8" class="TextAlign_R">
+                <!-- <i class="el-icon-search"></i> -->
+                <el-button type="primary" icon="el-icon-search" size="small">搜索</el-button>
+              </el-col>
+            </el-row>
+          </div>
+          <div class="tableColumn">
+            <el-row>
+              <el-col :span="3">日期</el-col>
+              <el-col :span="3">货物</el-col>
+              <el-col :span="4">发货地</el-col>
+              <el-col :span="4">收货地</el-col>
+              <el-col :span="3">车辆</el-col>
+              <el-col :span="3">重量</el-col>
+              <el-col :span="3">手机</el-col>
+            </el-row>
+          </div>
+          <div class="orderMarquee" id="orderMarqueeR">
+            <div class="realList" id="realListR">
+              <el-row class="orderItem" v-for="(order, idx) in latestOrder" :key="idx">
+                <el-col :span="3">{{idx+1}}</el-col>
+                <!-- <el-col :span="3">{{order.dateTime}}</el-col> -->
+                <el-col :span="3">{{order.goods_name}}</el-col>
+                <el-col :span="4">{{order.sh_address}}</el-col>
+                <el-col :span="4">{{order.fh_address}}</el-col>
+                <el-col :span="3">{{order.car_type}}</el-col>
+                <el-col :span="3">{{order.weight}}</el-col>
+                <el-col :span="3">{{order.phone}}</el-col>
+              </el-row>
+            </div>
+            <div id="CopyListR"></div>
+          </div>
+        </el-col>
+      </el-row>
+    </section>
+    <!-- <section class="MarginTB_80">
+      <el-row class="Padding_1 MarginTB_5">
+        <el-col :sm="24" :md="14">
+          <div style="width:90%;margin: 2rem auto;background:#fff;box-shadow:0 4px 80px -12px rgba(0,0,0,.1)">
+            <div style="background:#c7f2da;padding:20px 35px;color:#00c759">最新运单信息</div>
+            <div style="padding: 20px;">
+              <el-table
+                :data="latestOrder"
+                style="width: 100%">
+                <el-table-column
+                  prop="dateTime"
+                  label="日期"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="goods_name"
+                  label="货物名称"
+                  width="120">
+                </el-table-column>
+                <el-table-column
+                  prop="sh_address"
+                  label="收获地址">
+                </el-table-column>
+                <el-table-column
+                  prop="fh_address"
+                  label="发货地址">
+                </el-table-column>
+              </el-table>
+            </div>
+          </div>
+        </el-col>
+        <el-col :sm="24" :md="10" style="">
+          <video-player class="video-player-box" style="width: 80%;margin-left: 10%;"
+        ref="videoPlayer"
+        :options="playerOptions"/>
+        </el-col>
+      </el-row>
+    </section> -->
+    <!-- <section class="MarginTB_80"> -->
     <!-- <section class="MarginTB_80" style="min-height: 400px;position:relative;background:url('../../static/image/ss2.jpg');overflow:hidden"> -->
       <!-- <vue-particles
         color="#fff"
@@ -22,7 +177,7 @@
         class="lizi"
       >
       </vue-particles> -->
-      <el-row class="Padding_1 MarginTB_5">
+      <!-- <el-row class="Padding_1 MarginTB_5">
         <el-col :sm="24" :md="14" style="height: 300px;">
           <div style="width:90%;margin-left:10%;background:#fff;box-shadow:0 4px 80px -12px rgba(0,0,0,.1)">
             <div style="background:#c7f2da;padding:20px 35px;color:#00c759">打造优质物流交易网络平台</div>
@@ -86,23 +241,20 @@
           </div>
         </el-col>
       </el-row>
-    </section>
+    </section> -->
     <!-- video -->
-    <section class="MarginTB_80">
-      <!-- <h1 class="columnTit">
+    <!-- <section class="MarginTB_80">
+      <h1 class="columnTit">
         <span>快速了解无车承运</span>
-      </h1> -->
+      </h1>
       <el-row>
         <el-col :span="24">
           <video-player class="video-player-box" style="width: 80%;margin-left: 10%;"
         ref="videoPlayer"
         :options="playerOptions"/>
         </el-col>
-        <!-- <el-col :span="10" class="TextAlign_L">
-          <h2>快速了解无车承运</h2>
-        </el-col> -->
       </el-row>
-    </section>
+    </section> -->
     <!-- section_cards -->
     <section class="section_cards MarginTB_80">
       <h1 class="columnTit">我们的优势</h1>
@@ -155,6 +307,8 @@
 
 <script>
 import CarouselCom from '@/components/Carousel'
+import {send} from '../util/send'
+import {secondToFormat} from '../util/utils'
 export default {
   name: 'Home',
   data () {
@@ -167,7 +321,7 @@ export default {
           type: 'video/mp4',
           src: 'https://videos.confidentcustomer.com/assets/ConfidentCustomer.mp4'
         }],
-        poster: 'https://confidentcustomer.com/img/site/heading_bg.png'
+        poster: '../../static/image/Strongth_1.jpg'
       },
       StrongthList: [
         {title: '运力联合', content: '通过线上平台，协同运输和物流，上下服务生态，联合运力池', img: '../../static/image/Strongth_1.jpg'},
@@ -181,11 +335,154 @@ export default {
         {title: '案例', img: '../../static/image/Case_4.jpg'},
         {title: '案例', img: '../../static/image/Case_5.jpg'},
         {title: '案例', img: '../../static/image/Case_6.jpg'}
+      ],
+      fhPlace: '',
+      shPlace: '',
+      fhPlaceList: [
+        {label: '上海', value: 0},
+        {label: '南京', value: 1},
+        {label: '北京', value: 2}
+      ],
+      shPlaceList: [
+        {label: '上海', value: 0},
+        {label: '南京', value: 1},
+        {label: '北京', value: 2}
+      ],
+      latestOrder: [
+        {
+          dateTime: '2019-01-12',
+          goods_name: '床上用品',
+          sh_address: '广州',
+          fh_address: '厦门',
+          car_type: '大型',
+          weight: 1,
+          phone: '18234567890'
+        },
+        {
+          dateTime: '2019-01-12',
+          goods_name: '电子产品',
+          sh_address: '上海',
+          fh_address: '云南',
+          car_type: '大型',
+          weight: 1,
+          phone: '18234567890'
+        },
+        {
+          dateTime: '2019-01-12',
+          goods_name: '水果',
+          sh_address: '山东',
+          fh_address: '南京',
+          car_type: '大型',
+          weight: 1,
+          phone: '18234567890'
+        },
+        {
+          dateTime: '2019-01-12',
+          goods_name: '电子产品',
+          sh_address: '上海',
+          fh_address: '云南',
+          car_type: '大型',
+          weight: 1,
+          phone: '18234567890'
+        },
+        {
+          dateTime: '2019-01-12',
+          goods_name: '水果',
+          sh_address: '山东',
+          fh_address: '南京',
+          car_type: '大型',
+          weight: 1,
+          phone: '18234567890'
+        }
       ]
     }
   },
   components: {
     CarouselCom
+  },
+  created () {
+    this.latestOrder.map((order) => {
+      order.phone = order.phone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
+    })
+    // this.getLatestOrder()
+    // setInterval(() => {
+    //   this.getLatestOrder()
+    // }, 3000)
+  },
+  mounted () {
+    var time = 50
+    // LEFT
+    var OrderMarqueeL = document.getElementById('orderMarqueeL')
+    var RealListL = document.getElementById('realListL')
+    var CopyListL = document.getElementById('CopyListL')
+    OrderMarqueeL.scrollTop = 0
+    CopyListL.innerHTML = RealListL.innerHTML
+    function myScrollL () {
+      if (OrderMarqueeL.scrollTop >= RealListL.scrollHeight) {
+        OrderMarqueeL.scrollTop = 0
+      } else {
+        OrderMarqueeL.scrollTop++
+      }
+    }
+    var intervalL = setInterval(() => {
+      myScrollL()
+    }, time)
+    OrderMarqueeL.onmouseover = function () {
+      clearInterval(intervalL)
+    }
+    OrderMarqueeL.onmouseout = function () {
+      intervalL = setInterval(() => {
+        myScrollL()
+      }, time)
+    }
+    // RIGHT
+    var OrderMarqueeR = document.getElementById('orderMarqueeR')
+    var RealListR = document.getElementById('realListR')
+    var CopyListR = document.getElementById('CopyListR')
+    OrderMarqueeR.scrollTop = 0
+    CopyListR.innerHTML = RealListR.innerHTML
+    function myScrollR () {
+      if (OrderMarqueeR.scrollTop >= RealListR.scrollHeight) {
+        OrderMarqueeR.scrollTop = 0
+      } else {
+        OrderMarqueeR.scrollTop++
+      }
+    }
+    var intervalR = setInterval(() => {
+      myScrollR()
+    }, time)
+    OrderMarqueeR.onmouseover = function () {
+      clearInterval(intervalR)
+    }
+    OrderMarqueeR.onmouseout = function () {
+      intervalR = setInterval(() => {
+        myScrollR()
+      }, time)
+    }
+  },
+  methods: {
+    getLatestOrder () {
+      send({
+        name: '/tokens/orderList',
+        method: 'GET',
+        data: {
+        }
+      }).then(res => {
+        if (res.data.code === 1) {
+          res.data.orderList.map(item => {
+            item.dateTime = secondToFormat(item.zh_time.time)
+          })
+          this.latestOrder = res.data.orderList
+        } else {
+          this.$message({
+            message: '验证码获取失败！',
+            type: 'error'
+          })
+        }
+      }).catch((res) => {
+        console.log(res)
+      })
+    }
   }
 }
 </script>
@@ -200,9 +497,14 @@ export default {
     height: 400px !important;
   }
 }
+@media screen and (min-width: 1024px) {
+  .video-player-box{
+    height: 300px !important;
+  }
+}
 @media screen and (min-width: 1920px) {
   .video-player-box{
-    height: 600px !important;
+    height: 500px !important;
   }
 }
 .circleSpan{
@@ -365,5 +667,30 @@ export default {
 }
 .el-carousel__item:nth-child(2n+1) {
   background-color: #fff;
+}
+/**/
+.searchBar{
+  margin-top: 10px;
+  height: 40px;
+}
+.tableColumn{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #909399;
+  font-weight: bold;
+  /*background: rgb(199, 242, 218);*/
+}
+.orderMarquee{
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #efefef;
+}
+.orderItem{
+  width: 100%;
+  height: 40px;
+  font-size: 12px;
 }
 </style>
