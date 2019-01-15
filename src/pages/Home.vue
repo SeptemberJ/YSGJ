@@ -6,29 +6,80 @@
         <el-col :sm="24" :md="12" style="padding: 5px;">
           <div class="searchBar">
             <el-row>
-              <el-col :span="8">
-                <el-select v-model="fhPlace" placeholder="请选择起始地" size="small">
+              <el-col :span="12" class="TextAlign_L" style="font-weight: bold;font-size:14px;padding-left:20px;">最新货主订单信息</el-col>
+              <!-- <el-col :span="12" class="TextAlign_R" style="padding:0 20px;"><i class="el-icon-search CursorPointer" @click="showSearchConditionL"></i></el-col> -->
+            </el-row>
+          </div>
+          <div class="SearchCondition" v-if="SearchConditionL">
+            <el-row>
+              <el-col :span="4" style="font-size: 16px;">起始地</el-col>
+              <el-col :span="6">
+                <el-select v-model="fprovince" placeholder="请选择省" size="small" @change="changeFprovince">
                   <el-option
-                    v-for="(item, idx) in fhPlaceList"
+                    v-for="(item, idx) in fprovinceList"
                     :key="idx"
-                    :label="item.label"
-                    :value="item.value">
+                    :label="item.name"
+                    :value="item.id">
                   </el-option>
                 </el-select>
               </el-col>
-              <el-col :span="8">
-                <el-select v-model="shPlace" placeholder="请选择起始地" size="small">
+              <el-col :span="6">
+                <el-select v-model="fcity" placeholder="请选择市" size="small" @change="changeFcity">
                   <el-option
-                    v-for="(item, idx) in shPlaceList"
+                    v-for="(item, idx) in fcityList"
                     :key="idx"
-                    :label="item.label"
-                    :value="item.value">
+                    :label="item.name"
+                    :value="item.id">
                   </el-option>
                 </el-select>
               </el-col>
-              <el-col :span="8" class="TextAlign_R">
-                <!-- <i class="el-icon-search"></i> -->
-                <el-button type="primary" icon="el-icon-search" size="small">搜索</el-button>
+              <el-col :span="6">
+                <el-select v-model="farea" placeholder="请选择区" size="small" @change="changeFarea">
+                  <el-option
+                    v-for="(item, idx) in fareaList"
+                    :key="idx"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="4" style="font-size: 16px;">目的地</el-col>
+              <el-col :span="6">
+                <el-select v-model="sprovince" placeholder="请选择省" size="small" @change="changeSprovince">
+                  <el-option
+                    v-for="(item, idx) in sprovinceList"
+                    :key="idx"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="6">
+                <el-select v-model="scity" placeholder="请选择市" size="small" @change="changeScity">
+                  <el-option
+                    v-for="(item, idx) in scityList"
+                    :key="idx"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="6">
+                <el-select v-model="sarea" placeholder="请选择区" size="small" @change="changeSarea">
+                  <el-option
+                    v-for="(item, idx) in sareaList"
+                    :key="idx"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-col>
+            </el-row>
+            <el-row  class="TextAlign_C">
+              <el-col :span="24">
+                <el-button type="primary" icon="el-icon-search" size="small" @click="searchOrder">搜索</el-button>
               </el-col>
             </el-row>
           </div>
@@ -62,7 +113,7 @@
         <!-- 司机 -->
         <el-col :sm="24" :md="12"  style="padding: 5px;">
            <div class="searchBar">
-            <el-row>
+            <!-- <el-row>
               <el-col :span="8">
                 <el-select v-model="fhPlace" placeholder="请选择起始地" size="small">
                   <el-option
@@ -84,10 +135,9 @@
                 </el-select>
               </el-col>
               <el-col :span="8" class="TextAlign_R">
-                <!-- <i class="el-icon-search"></i> -->
                 <el-button type="primary" icon="el-icon-search" size="small">搜索</el-button>
               </el-col>
-            </el-row>
+            </el-row> -->
           </div>
           <div class="tableColumn">
             <el-row>
@@ -336,8 +386,20 @@ export default {
         {title: '案例', img: '../../static/image/Case_5.jpg'},
         {title: '案例', img: '../../static/image/Case_6.jpg'}
       ],
-      fhPlace: '',
-      shPlace: '',
+      SearchConditionL: true,
+      SearchConditionR: false,
+      fprovinceList: [],
+      fcityList: [],
+      fareaList: [],
+      sprovinceList: [],
+      scityList: [],
+      sareaList: [],
+      fprovince: '',
+      fcity: '',
+      farea: '',
+      sprovince: '',
+      scity: '',
+      sarea: '',
       fhPlaceList: [
         {label: '上海', value: 0},
         {label: '南京', value: 1},
@@ -348,7 +410,8 @@ export default {
         {label: '南京', value: 1},
         {label: '北京', value: 2}
       ],
-      latestOrder: [
+      latestOrder: [],
+      latestOrder2: [
         {
           dateTime: '2019-01-12',
           goods_name: '床上用品',
@@ -404,9 +467,10 @@ export default {
     this.latestOrder.map((order) => {
       order.phone = order.phone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
     })
-    // this.getLatestOrder()
+    this.getProvince()
+    this.getLatestOrderLastest()
     // setInterval(() => {
-    //   this.getLatestOrder()
+    //   this.getLatestOrderLastest()
     // }, 3000)
   },
   mounted () {
@@ -461,7 +525,32 @@ export default {
     }
   },
   methods: {
+    showSearchConditionL () {
+      this.SearchConditionL = !this.SearchConditionL
+    },
     getLatestOrder () {
+      send({
+        name: '/tokens/orderList?fh=' + this.farea + '&sh=' + this.sarea,
+        method: 'GET',
+        data: {
+        }
+      }).then(res => {
+        if (res.data.code === 1) {
+          res.data.orderList.map(item => {
+            item.dateTime = secondToFormat(item.zh_time.time)
+          })
+          this.latestOrder = res.data.orderList
+        } else {
+          this.$message({
+            message: '验证码获取失败！',
+            type: 'error'
+          })
+        }
+      }).catch((res) => {
+        console.log(res)
+      })
+    },
+    getLatestOrderLastest () {
       send({
         name: '/tokens/orderList',
         method: 'GET',
@@ -482,6 +571,86 @@ export default {
       }).catch((res) => {
         console.log(res)
       })
+    },
+    changeFprovince (id) {
+      console.log(id)
+      this.getCity(id, 'fcityList')
+      this.fcity = ''
+      this.farea = ''
+    },
+    changeFcity (id) {
+      console.log(id)
+      this.getArea(id, 'fareaList')
+      this.farea = ''
+    },
+    changeFarea (id) {
+      console.log(id)
+    },
+    changeSprovince (id) {
+      this.getCity(id, 'scityList')
+      this.scity = ''
+      this.sarea = ''
+    },
+    changeScity (id) {
+      this.getArea(id, 'sareaList')
+      this.sarea = ''
+    },
+    changeSarea (id) {
+      console.log(id)
+    },
+    getProvince () {
+      send({
+        name: '/registerDriverController/regionSelect?pid=1',
+        method: 'GET',
+        data: {
+        }
+      }).then(res => {
+        if (res.data.respCode === '0') {
+          this.fprovinceList = res.data.data
+          this.sprovinceList = res.data.data
+        }
+      }).catch((res) => {
+        console.log(res)
+      })
+    },
+    getCity (id, property) {
+      send({
+        name: '/registerDriverController/regionSelect?pid=' + id,
+        method: 'GET',
+        data: {
+        }
+      }).then(res => {
+        if (res.data.respCode === '0') {
+          this[property] = res.data.data
+        }
+      }).catch((res) => {
+        console.log(res)
+      })
+    },
+    getArea (id, property) {
+      send({
+        name: '/registerDriverController/regionSelect?pid=' + id,
+        method: 'GET',
+        data: {
+        }
+      }).then(res => {
+        if (res.data.respCode === '0') {
+          this[property] = res.data.data
+        }
+      }).catch((res) => {
+        console.log(res)
+      })
+    },
+    searchOrder () {
+      if (this.farea.trim() === '' || this.sarea.trim() === '') {
+        this.$message({
+          message: '请至将地址选择完整！',
+          type: 'warning'
+        })
+        return false
+      } else {
+        this.getLatestOrder()
+      }
     }
   }
 }
@@ -672,6 +841,14 @@ export default {
 .searchBar{
   margin-top: 10px;
   height: 40px;
+  line-height: 40px !important;
+  background: #e0b32b;
+}
+.SearchCondition{
+  height: 130px;
+  line-height: 40px;
+  margin-top: 10px;
+  overflow: hidden;
 }
 .tableColumn{
   width: 100%;
@@ -686,11 +863,13 @@ export default {
   width: 100%;
   height: 200px;
   overflow: hidden;
-  background: #efefef;
+  background: #fafafa;
 }
 .orderItem{
   width: 100%;
   height: 40px;
+  line-height: 40px;
   font-size: 12px;
+  border-bottom: #ccc dashed 1px;
 }
 </style>

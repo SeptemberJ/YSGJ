@@ -3,7 +3,7 @@
 		<el-row class="searchBox" style="">
       <el-col :span="20">
         <div class="inputBlock">
-          <el-input v-model="SearchOrder" clearable placeholder="请输入您要查询的运单号" style="border: 0px solid #fff !important;"></el-input>
+          <el-input v-model="SearchOrder" clearable placeholder="请输入您要查询的订单号" style="border: 0px solid #fff !important;"></el-input>
         </div>
       </el-col>
       <el-col class="searchBt CursorPointer" :span="4"><div @click="searchOrder">查询</div></el-col>

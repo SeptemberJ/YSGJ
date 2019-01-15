@@ -29,7 +29,9 @@ export default {
       SearchOrder: '',
       carouseHeight: '293px',
       CarouselList: [
-        {'img': '../../static/image/Carousel_4.jpg'}
+        // {img: '../../static/image/Carousel_4.jpg'},
+        {img: 'https://cdn.vsiji.cn/image/Public/Images/upLoadFiles/18/11/30/1543563741-856022647.jpeg'},
+        {img: 'https://cdn.vsiji.cn/image/Public/Images/upLoadFiles/18/12/03/1543822868-2086090813.jpeg'}
       ]
     }
   },

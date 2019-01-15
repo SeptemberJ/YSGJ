@@ -9,7 +9,7 @@
       <el-col class="NavRightBoxP" :xs="12" :sm="21">
         <div class="grid-content bg-purple">
           <el-menu :default-active="menuIndex" class="el-menu-demo" mode="horizontal" @select="changeMenu">
-            <el-menu-item index="8" style="font-size:20px">运单</el-menu-item>
+            <el-menu-item index="8" style="font-size:20px">订单查询</el-menu-item>
             <el-menu-item index="7" style="font-size:20px">注册</el-menu-item>
             <el-menu-item index="6" style="font-size:20px">登陆</el-menu-item>
             <el-menu-item index="5" style="font-size:20px">关于我们</el-menu-item>
