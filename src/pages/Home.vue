@@ -14,9 +14,9 @@
             <el-row>
               <el-col :span="4" style="font-size: 16px;">起始地</el-col>
               <el-col :span="6">
-                <el-select v-model="fprovince" placeholder="请选择省" size="small" @change="changeFprovince">
+                <el-select v-model="fprovinceL" placeholder="请选择省" size="small" @change="changeFprovince($event, 'fcityListL')">
                   <el-option
-                    v-for="(item, idx) in fprovinceList"
+                    v-for="(item, idx) in fprovinceListL"
                     :key="idx"
                     :label="item.name"
                     :value="item.id">
@@ -24,9 +24,9 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="fcity" placeholder="请选择市" size="small" @change="changeFcity">
+                <el-select v-model="fcityL" placeholder="请选择市" size="small" @change="changeFcity($event, 'fareaListL')">
                   <el-option
-                    v-for="(item, idx) in fcityList"
+                    v-for="(item, idx) in fcityListL"
                     :key="idx"
                     :label="item.name"
                     :value="item.id">
@@ -34,9 +34,9 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="farea" placeholder="请选择区" size="small" @change="changeFarea">
+                <el-select v-model="fareaL" placeholder="请选择区" size="small" @change="changeFarea">
                   <el-option
-                    v-for="(item, idx) in fareaList"
+                    v-for="(item, idx) in fareaListL"
                     :key="idx"
                     :label="item.name"
                     :value="item.id">
@@ -47,9 +47,9 @@
             <el-row>
               <el-col :span="4" style="font-size: 16px;">目的地</el-col>
               <el-col :span="6">
-                <el-select v-model="sprovince" placeholder="请选择省" size="small" @change="changeSprovince">
+                <el-select v-model="sprovinceL" placeholder="请选择省" size="small" @change="changeSprovince($event, 'scityListL')">
                   <el-option
-                    v-for="(item, idx) in sprovinceList"
+                    v-for="(item, idx) in sprovinceListL"
                     :key="idx"
                     :label="item.name"
                     :value="item.id">
@@ -57,9 +57,9 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="scity" placeholder="请选择市" size="small" @change="changeScity">
+                <el-select v-model="scityL" placeholder="请选择市" size="small" @change="changeScity($event, 'sareaListL')">
                   <el-option
-                    v-for="(item, idx) in scityList"
+                    v-for="(item, idx) in scityListL"
                     :key="idx"
                     :label="item.name"
                     :value="item.id">
@@ -67,9 +67,9 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="sarea" placeholder="请选择区" size="small" @change="changeSarea">
+                <el-select v-model="sareaL" placeholder="请选择区" size="small" @change="changeSarea">
                   <el-option
-                    v-for="(item, idx) in sareaList"
+                    v-for="(item, idx) in sareaListL"
                     :key="idx"
                     :label="item.name"
                     :value="item.id">
@@ -79,91 +79,173 @@
             </el-row>
             <el-row  class="TextAlign_C">
               <el-col :span="24">
-                <el-button type="primary" icon="el-icon-search" size="small" @click="searchOrder">搜索</el-button>
+                <el-button icon="el-icon-close" size="small" @click="cancelSearchCondition('searchedL')">取消搜素</el-button>
+                <el-button type="primary" icon="el-icon-search" size="small" @click="searchOrder('left')">确认搜索</el-button>
               </el-col>
             </el-row>
           </div>
           <div class="tableColumn">
             <el-row>
-              <el-col :span="3">日期</el-col>
-              <el-col :span="3">货物</el-col>
+              <el-col :span="4">日期</el-col>
+              <el-col :span="4">货物</el-col>
               <el-col :span="4">发货地</el-col>
               <el-col :span="4">收货地</el-col>
               <el-col :span="3">车辆</el-col>
-              <el-col :span="3">重量</el-col>
+              <el-col :span="2">重量</el-col>
               <el-col :span="3">手机</el-col>
             </el-row>
           </div>
-          <div class="orderMarquee" id="orderMarqueeL">
+          <div v-show="!searchedL" class="orderMarquee" id="orderMarqueeL">
             <div class="realList" id="realListL">
-              <el-row class="orderItem" v-for="(order, idx) in latestOrder" :key="idx">
-                <el-col :span="3">{{idx+1}}</el-col>
-                <!-- <el-col :span="3">{{order.dateTime}}</el-col> -->
-                <el-col :span="3">{{order.goods_name}}</el-col>
-                <el-col :span="4">{{order.sh_address}}</el-col>
-                <el-col :span="4">{{order.fh_address}}</el-col>
-                <el-col :span="3">{{order.car_type}}</el-col>
-                <el-col :span="3">{{order.weight}}</el-col>
+              <el-row class="orderItem" v-for="(order, idx) in latestOrderL" :key="idx">
+                <!-- <el-col :span="4">{{idx+1}}</el-col> -->
+                <el-col :span="4">{{order.dateTime}}</el-col>
+                <el-col :span="4">{{order.goods_name}}</el-col>
+                <el-col :span="4">{{order.origin}}</el-col>
+                <el-col :span="4">{{order.destination}}</el-col>
+                <el-col :span="3">{{order.type_name}}</el-col>
+                <el-col :span="2">{{order.fweight}}</el-col>
                 <el-col :span="3">{{order.phone}}</el-col>
               </el-row>
             </div>
             <div id="CopyListL"></div>
           </div>
+          <div v-if="searchedL" class="resultL">
+            <div class="realList">
+              <el-row class="orderItem" v-for="(order, idx) in resultOrderL" :key="idx">
+                <!-- <el-col :span="4">{{idx+1}}</el-col> -->
+                <el-col :span="4">{{order.dateTime}}</el-col>
+                <el-col :span="4">{{order.goods_name}}</el-col>
+                <el-col :span="4">{{order.origin}}</el-col>
+                <el-col :span="4">{{order.destination}}</el-col>
+                <el-col :span="3">{{order.type_name}}</el-col>
+                <el-col :span="2">{{order.fweight}}</el-col>
+                <el-col :span="3">{{order.phone}}</el-col>
+              </el-row>
+            </div>
+          </div>
         </el-col>
         <!-- 司机 -->
         <el-col :sm="24" :md="12"  style="padding: 5px;">
            <div class="searchBar">
-            <!-- <el-row>
-              <el-col :span="8">
-                <el-select v-model="fhPlace" placeholder="请选择起始地" size="small">
+            <el-row>
+              <el-col :span="12" class="TextAlign_L" style="font-weight: bold;font-size:14px;padding-left:20px;">最新司机订单信息</el-col>
+              <!-- <el-col :span="12" class="TextAlign_R" style="padding:0 20px;"><i class="el-icon-search CursorPointer" @click="showSearchConditionL"></i></el-col> -->
+            </el-row>
+          </div>
+          <div class="SearchCondition" v-if="SearchConditionR">
+            <el-row>
+              <el-col :span="4" style="font-size: 16px;">起始地</el-col>
+              <el-col :span="6">
+                <el-select v-model="fprovinceR" placeholder="请选择省" size="small" @change="changeFprovince($event, 'fcityListR')">
                   <el-option
-                    v-for="(item, idx) in fhPlaceList"
+                    v-for="(item, idx) in fprovinceListR"
                     :key="idx"
-                    :label="item.label"
-                    :value="item.value">
+                    :label="item.name"
+                    :value="item.id">
                   </el-option>
                 </el-select>
               </el-col>
-              <el-col :span="8">
-                <el-select v-model="shPlace" placeholder="请选择起始地" size="small">
+              <el-col :span="6">
+                <el-select v-model="fcityR" placeholder="请选择市" size="small" @change="changeFcity($event, 'fareaListR')">
                   <el-option
-                    v-for="(item, idx) in shPlaceList"
+                    v-for="(item, idx) in fcityListR"
                     :key="idx"
-                    :label="item.label"
-                    :value="item.value">
+                    :label="item.name"
+                    :value="item.id">
                   </el-option>
                 </el-select>
               </el-col>
-              <el-col :span="8" class="TextAlign_R">
-                <el-button type="primary" icon="el-icon-search" size="small">搜索</el-button>
+              <el-col :span="6">
+                <el-select v-model="fareaR" placeholder="请选择区" size="small" @change="changeFarea">
+                  <el-option
+                    v-for="(item, idx) in fareaListR"
+                    :key="idx"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
               </el-col>
-            </el-row> -->
+            </el-row>
+            <el-row>
+              <el-col :span="4" style="font-size: 16px;">目的地</el-col>
+              <el-col :span="6">
+                <el-select v-model="sprovinceR" placeholder="请选择省" size="small" @change="changeSprovince($event, 'scityListR')">
+                  <el-option
+                    v-for="(item, idx) in sprovinceListR"
+                    :key="idx"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="6">
+                <el-select v-model="scityR" placeholder="请选择市" size="small" @change="changeScity($event, 'sareaListR')">
+                  <el-option
+                    v-for="(item, idx) in scityListR"
+                    :key="idx"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="6">
+                <el-select v-model="sareaR" placeholder="请选择区" size="small" @change="changeSarea">
+                  <el-option
+                    v-for="(item, idx) in sareaListR"
+                    :key="idx"
+                    :label="item.name"
+                    :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-col>
+            </el-row>
+            <el-row  class="TextAlign_C">
+              <el-col :span="24">
+                <el-button icon="el-icon-close" size="small" @click="cancelSearchCondition('searchedR')">取消搜素</el-button>
+                <el-button type="primary" icon="el-icon-search" size="small" @click="searchOrder('right')">确认搜索</el-button>
+              </el-col>
+            </el-row>
           </div>
           <div class="tableColumn">
             <el-row>
-              <el-col :span="3">日期</el-col>
-              <el-col :span="3">货物</el-col>
+              <el-col :span="4">日期</el-col>
+              <el-col :span="4">货物</el-col>
               <el-col :span="4">发货地</el-col>
               <el-col :span="4">收货地</el-col>
               <el-col :span="3">车辆</el-col>
-              <el-col :span="3">重量</el-col>
+              <el-col :span="2">重量</el-col>
               <el-col :span="3">手机</el-col>
             </el-row>
           </div>
-          <div class="orderMarquee" id="orderMarqueeR">
+          <div v-show="!searchedR" class="orderMarquee" id="orderMarqueeR">
             <div class="realList" id="realListR">
-              <el-row class="orderItem" v-for="(order, idx) in latestOrder" :key="idx">
-                <el-col :span="3">{{idx+1}}</el-col>
-                <!-- <el-col :span="3">{{order.dateTime}}</el-col> -->
-                <el-col :span="3">{{order.goods_name}}</el-col>
-                <el-col :span="4">{{order.sh_address}}</el-col>
-                <el-col :span="4">{{order.fh_address}}</el-col>
-                <el-col :span="3">{{order.car_type}}</el-col>
-                <el-col :span="3">{{order.weight}}</el-col>
+              <el-row class="orderItem" v-for="(order, idx) in latestOrderR" :key="idx">
+                <!-- <el-col :span="4">{{idx+1}}</el-col> -->
+                <el-col :span="4">{{order.dateTime}}</el-col>
+                <el-col :span="4">{{order.goods_name}}</el-col>
+                <el-col :span="4">{{order.origin}}</el-col>
+                <el-col :span="4">{{order.destination}}</el-col>
+                <el-col :span="3">{{order.type_name}}</el-col>
+                <el-col :span="2">{{order.fweight}}</el-col>
                 <el-col :span="3">{{order.phone}}</el-col>
               </el-row>
             </div>
             <div id="CopyListR"></div>
+          </div>
+          <div v-if="searchedR" class="resultR">
+            <div class="realList">
+              <el-row class="orderItem" v-for="(order, idx) in resultOrderR" :key="idx">
+                <!-- <el-col :span="4">{{idx+1}}</el-col> -->
+                <el-col :span="4">{{order.dateTime}}</el-col>
+                <el-col :span="4">{{order.goods_name}}</el-col>
+                <el-col :span="4">{{order.origin}}</el-col>
+                <el-col :span="4">{{order.destination}}</el-col>
+                <el-col :span="3">{{order.type_name}}</el-col>
+                <el-col :span="2">{{order.fweight}}</el-col>
+                <el-col :span="3">{{order.phone}}</el-col>
+              </el-row>
+            </div>
           </div>
         </el-col>
       </el-row>
@@ -387,36 +469,64 @@ export default {
         {title: '案例', img: '../../static/image/Case_6.jpg'}
       ],
       SearchConditionL: true,
-      SearchConditionR: false,
-      fprovinceList: [],
-      fcityList: [],
-      fareaList: [],
-      sprovinceList: [],
-      scityList: [],
-      sareaList: [],
-      fprovince: '',
-      fcity: '',
-      farea: '',
-      sprovince: '',
-      scity: '',
-      sarea: '',
-      fhPlaceList: [
-        {label: '上海', value: 0},
-        {label: '南京', value: 1},
-        {label: '北京', value: 2}
-      ],
-      shPlaceList: [
-        {label: '上海', value: 0},
-        {label: '南京', value: 1},
-        {label: '北京', value: 2}
-      ],
-      latestOrder: [],
+      SearchConditionR: true,
+      // LEFT
+      fprovinceListL: [],
+      fcityListL: [],
+      fareaListL: [],
+      sprovinceListL: [],
+      scityListL: [],
+      sareaListL: [],
+      fprovinceL: '',
+      fcityL: '',
+      fareaL: '',
+      sprovinceL: '',
+      scityL: '',
+      sareaL: '',
+      // RIGHT
+      fprovinceListR: [],
+      fcityListR: [],
+      fareaListR: [],
+      sprovinceListR: [],
+      scityListR: [],
+      sareaListR: [],
+      fprovinceR: '',
+      fcityR: '',
+      fareaR: '',
+      sprovinceR: '',
+      scityR: '',
+      sareaR: '',
+      // ORDER
+      latestOrderL: [],
+      latestOrderR: [],
+      searchedL: false,
+      resultOrderL: [],
+      searchedR: false,
+      resultOrderR: [],
       latestOrder2: [
         {
           dateTime: '2019-01-12',
           goods_name: '床上用品',
           sh_address: '广州',
           fh_address: '厦门',
+          car_type: '大型',
+          weight: 1,
+          phone: '18234567890'
+        },
+        {
+          dateTime: '2019-01-12',
+          goods_name: '电子产品',
+          sh_address: '上海',
+          fh_address: '云南',
+          car_type: '大型',
+          weight: 1,
+          phone: '18234567890'
+        },
+        {
+          dateTime: '2019-01-12',
+          goods_name: '水果',
+          sh_address: '山东',
+          fh_address: '南京',
           car_type: '大型',
           weight: 1,
           phone: '18234567890'
@@ -464,11 +574,8 @@ export default {
     CarouselCom
   },
   created () {
-    this.latestOrder.map((order) => {
-      order.phone = order.phone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
-    })
     this.getProvince()
-    this.getLatestOrderLastest()
+    this.getOrderLastestL()
     // setInterval(() => {
     //   this.getLatestOrderLastest()
     // }, 3000)
@@ -480,7 +587,9 @@ export default {
     var RealListL = document.getElementById('realListL')
     var CopyListL = document.getElementById('CopyListL')
     OrderMarqueeL.scrollTop = 0
-    CopyListL.innerHTML = RealListL.innerHTML
+    setTimeout(() => {
+      CopyListL.innerHTML = RealListL.innerHTML
+    }, 1000)
     function myScrollL () {
       if (OrderMarqueeL.scrollTop >= RealListL.scrollHeight) {
         OrderMarqueeL.scrollTop = 0
@@ -525,21 +634,24 @@ export default {
     }
   },
   methods: {
-    showSearchConditionL () {
-      this.SearchConditionL = !this.SearchConditionL
+    cancelSearchCondition (property) {
+      this[property] = false
     },
-    getLatestOrder () {
+    getOrderL () {
       send({
-        name: '/tokens/orderList?fh=' + this.farea + '&sh=' + this.sarea,
+        name: '/tokens/orderList?fh=' + this.fareaL + '&sh=' + this.sareaL,
         method: 'GET',
         data: {
         }
       }).then(res => {
         if (res.data.code === 1) {
-          res.data.orderList.map(item => {
-            item.dateTime = secondToFormat(item.zh_time.time)
-          })
-          this.latestOrder = res.data.orderList
+          if (res.data.orderList.length > 0) {
+            res.data.orderList.map(item => {
+              item.dateTime = secondToFormat(item.zh_time.time)
+              item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
+            })
+          }
+          this.resultOrderL = res.data.orderList
         } else {
           this.$message({
             message: '验证码获取失败！',
@@ -550,7 +662,32 @@ export default {
         console.log(res)
       })
     },
-    getLatestOrderLastest () {
+    getOrderR () {
+      send({
+        name: '/tokens/orderList?fh=' + this.fareaR + '&sh=' + this.sareaR,
+        method: 'GET',
+        data: {
+        }
+      }).then(res => {
+        if (res.data.code === 1) {
+          if (res.data.orderList.length > 0) {
+            res.data.orderList.map(item => {
+              item.dateTime = secondToFormat(item.zh_time.time)
+              item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
+            })
+          }
+          this.resultOrderR = res.data.orderList
+        } else {
+          this.$message({
+            message: '验证码获取失败！',
+            type: 'error'
+          })
+        }
+      }).catch((res) => {
+        console.log(res)
+      })
+    },
+    getOrderLastestL () {
       send({
         name: '/tokens/orderList',
         method: 'GET',
@@ -560,8 +697,10 @@ export default {
         if (res.data.code === 1) {
           res.data.orderList.map(item => {
             item.dateTime = secondToFormat(item.zh_time.time)
+            item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
+            console.log(item.phone)
           })
-          this.latestOrder = res.data.orderList
+          this.latestOrderL = res.data.orderList
         } else {
           this.$message({
             message: '验证码获取失败！',
@@ -572,27 +711,27 @@ export default {
         console.log(res)
       })
     },
-    changeFprovince (id) {
+    changeFprovince (id, property) {
       console.log(id)
-      this.getCity(id, 'fcityList')
+      this.getCity(id, property)
       this.fcity = ''
       this.farea = ''
     },
-    changeFcity (id) {
+    changeFcity (id, property) {
       console.log(id)
-      this.getArea(id, 'fareaList')
+      this.getArea(id, property)
       this.farea = ''
     },
     changeFarea (id) {
       console.log(id)
     },
-    changeSprovince (id) {
-      this.getCity(id, 'scityList')
+    changeSprovince (id, property) {
+      this.getCity(id, property)
       this.scity = ''
       this.sarea = ''
     },
-    changeScity (id) {
-      this.getArea(id, 'sareaList')
+    changeScity (id, property) {
+      this.getArea(id, property)
       this.sarea = ''
     },
     changeSarea (id) {
@@ -600,14 +739,16 @@ export default {
     },
     getProvince () {
       send({
-        name: '/registerDriverController/regionSelect?pid=1',
+        name: '/tokens/regionSelect?pid=1',
         method: 'GET',
         data: {
         }
       }).then(res => {
         if (res.data.respCode === '0') {
-          this.fprovinceList = res.data.data
-          this.sprovinceList = res.data.data
+          this.fprovinceListL = res.data.data
+          this.sprovinceListL = res.data.data
+          this.fprovinceListR = res.data.data
+          this.sprovinceListR = res.data.data
         }
       }).catch((res) => {
         console.log(res)
@@ -615,7 +756,7 @@ export default {
     },
     getCity (id, property) {
       send({
-        name: '/registerDriverController/regionSelect?pid=' + id,
+        name: '/tokens/regionSelect?pid=' + id,
         method: 'GET',
         data: {
         }
@@ -629,7 +770,7 @@ export default {
     },
     getArea (id, property) {
       send({
-        name: '/registerDriverController/regionSelect?pid=' + id,
+        name: '/tokens/regionSelect?pid=' + id,
         method: 'GET',
         data: {
         }
@@ -641,15 +782,32 @@ export default {
         console.log(res)
       })
     },
-    searchOrder () {
-      if (this.farea.trim() === '' || this.sarea.trim() === '') {
-        this.$message({
-          message: '请至将地址选择完整！',
-          type: 'warning'
-        })
-        return false
-      } else {
-        this.getLatestOrder()
+    searchOrder (kind) {
+      switch (kind) {
+        case 'left':
+          if (this.fareaL.trim() === '' || this.sareaL.trim() === '') {
+            this.$message({
+              message: '请将地址选择完整！',
+              type: 'warning'
+            })
+            return false
+          } else {
+            this.searchedL = true
+            this.getOrderL()
+          }
+          break
+        case 'right':
+          if (this.fareaR.trim() === '' || this.sareaR.trim() === '') {
+            this.$message({
+              message: '请将地址选择完整！',
+              type: 'warning'
+            })
+            return false
+          } else {
+            this.searchedR = true
+            this.getOrderR()
+          }
+          break
       }
     }
   }
@@ -868,6 +1026,8 @@ export default {
 .orderItem{
   width: 100%;
   height: 40px;
+  overflow: hidden;
+  display: block;
   line-height: 40px;
   font-size: 12px;
   border-bottom: #ccc dashed 1px;

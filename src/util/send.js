@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 
-// const URL_PREFIX = 'http://116.62.171.244:8082/yingsu/rest'
-const URL_PREFIX = 'http://172.16.52.99:8083/yingsu/rest'
+const URL_PREFIX = 'http://116.62.171.244:8082/yingsu/rest'
+// const URL_PREFIX = 'http://172.16.52.99:8083/yingsu/rest'
 
 export function send (options) {
   const timestamp = Date.now()
@@ -14,7 +14,7 @@ export function send (options) {
         axios.post(encodeURI(options.url), options.data,
           {
             headers: {
-              'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxODczNDU2Nzg5MCIsInN1YiI6IjE4NzM0NTY3ODkwIiwiaWF0IjoxNTQ3NTM5NzAyfQ.eh15RTGh_z48-KH1goGbAheoXCb6kk1gCofJZy8783M',
+              // 'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxODczNDU2Nzg5MCIsInN1YiI6IjE4NzM0NTY3ODkwIiwiaWF0IjoxNTQ3NTM5NzAyfQ.eh15RTGh_z48-KH1goGbAheoXCb6kk1gCofJZy8783M',
               'X-Timestamp': timestamp
             }
           }
@@ -29,7 +29,7 @@ export function send (options) {
         })
         break
       case 'GET':
-        axios.get(encodeURI(options.url), {headers: {'X-Timestamp': timestamp, 'X-AUTH-TOKEN': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxODczNDU2Nzg5MCIsInN1YiI6IjE4NzM0NTY3ODkwIiwiaWF0IjoxNTQ3NTM5NzAyfQ.eh15RTGh_z48-KH1goGbAheoXCb6kk1gCofJZy8783M',}}
+        axios.get(encodeURI(options.url), {headers: {'X-Timestamp': timestamp}}
         ).then((res) => {
           resolve(res)
         }).catch((error) => {
