@@ -7,6 +7,8 @@ import NewsDetail from '@/pages/News//NewsDetail'
 import Partner from '@/pages/Partner'
 import AboutUs from '@/pages/AboutUs'
 import Order from '@/pages/Order/Order'
+import SearchOrderH from '@/pages/Order/SearchOrderH'
+import SearchOrderS from '@/pages/Order/SearchOrderS'
 
 Vue.use(VueRouter)
 
@@ -52,6 +54,18 @@ const router = new VueRouter({
       path: '/Order',
       name: 'Order',
       component: Order,
+      meta: {requireAuth: false}
+    },
+    {
+      path: '/SearchOrderH',
+      name: 'SearchOrderH',
+      component: SearchOrderH,
+      meta: {requireAuth: false}
+    },
+    {
+      path: '/SearchOrderS',
+      name: 'SearchOrderS',
+      component: SearchOrderS,
       meta: {requireAuth: false}
     },
     {path: '*', redirect: '/Home'}

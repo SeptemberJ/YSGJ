@@ -20,6 +20,11 @@
               <el-menu-item index="2-1">TMS协同运输管理系统</el-menu-item>
               <el-menu-item index="2-2">WMS管理系统</el-menu-item>
             </el-submenu>
+            <el-submenu index="9">
+              <template slot="title">订单</template>
+              <el-menu-item index="9-1">货主查单</el-menu-item>
+              <el-menu-item index="9-2">司机查单</el-menu-item>
+            </el-submenu>
             <el-menu-item index="1" style="font-size:20px">首页</el-menu-item>
           </el-menu>
         </div>
@@ -37,7 +42,10 @@
               <div class="MenuItemM" @click="clickMenu('1')">首页</div>
             </el-col>
             <el-col :span="24">
-              <div class="MenuItemM" @click="ToSecondMenu">产品与服务</div>
+              <div class="MenuItemM" @click="ToSecondMenu('9')">订单</div>
+            </el-col>
+            <el-col :span="24">
+              <div class="MenuItemM" @click="ToSecondMenu('2')">产品与服务</div>
             </el-col>
             <el-col :span="24">
               <div class="MenuItemM" @click="clickMenu('3')">资讯</div>
@@ -56,15 +64,25 @@
             </el-col>
           </el-row>
           <el-row v-if="ifShowSecond">
-            <el-col :span="24" class="TextAlign_L">
+            <el-col :span="24" class="TextAlign_L" style="position:relative;z-index:9999">
               <img class="barIcon" src="../../static/image/icons/back.png" @click="backMainMenu">
             </el-col>
-            <el-col :span="24">
-              <div class="MenuItemM">TMS协同运输管理系统</div>
-            </el-col>
-            <el-col :span="24">
-              <div class="MenuItemM">WMS管理系统</div>
-            </el-col>
+            <el-row v-if="mobileMenuIdx == 2">
+              <el-col :span="24">
+                <div class="MenuItemM" @click="toProductDetail">TMS协同运输管理系统</div>
+              </el-col>
+              <el-col :span="24">
+                <div class="MenuItemM" @click="toProductDetail">WMS管理系统</div>
+              </el-col>
+            </el-row>
+            <el-row v-if="mobileMenuIdx == 9">
+              <el-col :span="24">
+                <div class="MenuItemM" @click="toSearch(0)">货主查单</div>
+              </el-col>
+              <el-col :span="24">
+                <div class="MenuItemM" @click="toSearch(1)">司机查单</div>
+              </el-col>
+            </el-row>
           </el-row>
         </div>
       </el-collapse-transition>
@@ -79,7 +97,8 @@ export default {
   data () {
     return {
       ifShowMenu: false,
-      ifShowSecond: false
+      ifShowSecond: false,
+      mobileMenuIdx: ''
     }
   },
   computed: {
@@ -125,6 +144,15 @@ export default {
           this.$router.push({name: 'Order'})
           this.changeCurMenu(key)
           break
+        case '9':
+          if (key === '9-1') {
+            this.$router.push({name: 'SearchOrderH'})
+          }
+          if (key === '9-2') {
+            this.$router.push({name: 'SearchOrderS'})
+          }
+          this.changeCurMenu(key)
+          break
       }
     },
     clickMenu (idx) {
@@ -148,6 +176,19 @@ export default {
           break
       }
     },
+    toProductDetail () {
+      this.$router.push({name: 'ProductDetail'})
+      this.toggleMenu()
+    },
+    toSearch (kind) {
+      if (kind === 0) {
+        this.$router.push({name: 'SearchOrderH'})
+      }
+      if (kind === 1) {
+        this.$router.push({name: 'SearchOrderS'})
+      }
+      this.toggleMenu()
+    },
     toggleMenu () {
       if (this.ifShowMenu) {
         this.ifShowMenu = false
@@ -156,8 +197,14 @@ export default {
         this.ifShowMenu = true
       }
     },
-    ToSecondMenu () {
+    ToSecondMenu (idx) {
       this.ifShowSecond = true
+      if (idx === '9') {
+        this.mobileMenuIdx = 9
+      }
+      if (idx === '2') {
+        this.mobileMenuIdx = 2
+      }
     },
     backMainMenu () {
       this.ifShowSecond = false

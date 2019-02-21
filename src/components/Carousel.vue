@@ -1,7 +1,7 @@
 <template>
-  <el-carousel :initial-index="CurIndex" :interval="2000" arrow="always" :autoplay="false" :height="carouseHeight" @change="changeCarousel">
+  <el-carousel :initial-index="CurIndex" :interval="2000" arrow="always" :autoplay="true" :height="carouseHeight" @change="changeCarousel">
     <el-carousel-item v-for="(Carousel, idx) in CarouselList" :key="idx">
-      <img ref="carouselImg" :src="Carousel.img" style="width: 100%;">
+      <img ref="carouselImg" :src="Carousel.img" style="width: 100%;height:100%">
     </el-carousel-item>
    <!--  <el-row class="searchBox">
       <el-col :span="20">
@@ -27,11 +27,12 @@ export default {
     return {
       CurIndex: 0,
       SearchOrder: '',
-      carouseHeight: '293px',
+      carouseHeight: '350px', // '293px',
       CarouselList: [
         // {img: '../../static/image/Carousel_4.jpg'},
-        {img: 'https://cdn.vsiji.cn/image/Public/Images/upLoadFiles/18/11/30/1543563741-856022647.jpeg'},
-        {img: 'https://cdn.vsiji.cn/image/Public/Images/upLoadFiles/18/12/03/1543822868-2086090813.jpeg'}
+        {img: '../../static/image/banner2.jpg'},
+        {img: '../../static/image/banner3.jpeg'},
+        {img: '../../static/image/banner4.jpeg'}
       ]
     }
   },

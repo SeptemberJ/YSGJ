@@ -1,13 +1,12 @@
 <template>
   <div id="Home">
     <CarouselCom/>
-    <section>
+    <!-- <section>
       <el-row>
         <el-col :sm="24" :md="12" style="padding: 5px;">
           <div class="searchBar">
             <el-row>
-              <el-col :span="12" class="TextAlign_L" style="font-weight: bold;font-size:14px;padding-left:20px;">最新货主订单信息</el-col>
-              <!-- <el-col :span="12" class="TextAlign_R" style="padding:0 20px;"><i class="el-icon-search CursorPointer" @click="showSearchConditionL"></i></el-col> -->
+              <el-col :span="12" class="TextAlign_L" style="font-weight: bold;font-size:14px;padding-left:20px;">最新订单信息</el-col>
             </el-row>
           </div>
           <div class="SearchCondition" v-if="SearchConditionL">
@@ -86,11 +85,10 @@
           </div>
           <div class="tableColumn">
             <el-row>
-              <el-col :span="4">日期</el-col>
+              <el-col :span="5">日期</el-col>
               <el-col :span="4">货物</el-col>
-              <el-col :span="4">发货地</el-col>
-              <el-col :span="4">收货地</el-col>
-              <el-col :span="3">车辆</el-col>
+              <el-col :span="5">发货地</el-col>
+              <el-col :span="5">收货地</el-col>
               <el-col :span="2">重量</el-col>
               <el-col :span="3">手机</el-col>
             </el-row>
@@ -98,12 +96,10 @@
           <div v-show="!searchedL" class="orderMarquee" id="orderMarqueeL">
             <div class="realList" id="realListL">
               <el-row class="orderItem" v-for="(order, idx) in latestOrderL" :key="idx">
-                <!-- <el-col :span="4">{{idx+1}}</el-col> -->
-                <el-col :span="4">{{order.dateTime}}</el-col>
-                <el-col :span="4">{{order.goods_name}}</el-col>
-                <el-col :span="4">{{order.origin}}</el-col>
-                <el-col :span="4">{{order.destination}}</el-col>
-                <el-col :span="3">{{order.type_name}}</el-col>
+                <el-col :span="5">{{order.dateTime}}</el-col>
+                <el-col :span="4">{{order.name}}</el-col>
+                <el-col :span="5">{{order.origin}}</el-col>
+                <el-col :span="5">{{order.destination}}</el-col>
                 <el-col :span="2">{{order.fweight}}</el-col>
                 <el-col :span="3">{{order.phone}}</el-col>
               </el-row>
@@ -113,24 +109,35 @@
           <div v-if="searchedL" class="resultL">
             <div class="realList">
               <el-row class="orderItem" v-for="(order, idx) in resultOrderL" :key="idx">
-                <!-- <el-col :span="4">{{idx+1}}</el-col> -->
-                <el-col :span="4">{{order.dateTime}}</el-col>
-                <el-col :span="4">{{order.goods_name}}</el-col>
-                <el-col :span="4">{{order.origin}}</el-col>
-                <el-col :span="4">{{order.destination}}</el-col>
-                <el-col :span="3">{{order.type_name}}</el-col>
+
+                <el-col :span="5">{{order.dateTime}}</el-col>
+                <el-col :span="4">{{order.name}}</el-col>
+                <el-col :span="5">{{order.origin}}</el-col>
+                <el-col :span="5">{{order.destination}}</el-col>
                 <el-col :span="2">{{order.fweight}}</el-col>
                 <el-col :span="3">{{order.phone}}</el-col>
+              </el-row>
+              <el-row class="MarginT_10">
+                <el-col :span="24" class="TextAlign_R">
+                  <el-pagination
+                    v-if="resultOrderL.length > 0"
+                    @size-change="handleSizeChangeL"
+                    @current-change="handleCurrentChangeL"
+                    :current-page.sync="currentPageL"
+                    :page-size="5"
+                    layout="prev, pager, next, jumper"
+                    :total="sumL">
+                  </el-pagination>
+                </el-col>
+                <el-col :span="24" v-if="resultOrderL.length == 0" class="MarginT_10" style="background:#efefef;font-size:14px;padding:10px;">暂无订单</el-col>
               </el-row>
             </div>
           </div>
         </el-col>
-        <!-- 司机 -->
         <el-col :sm="24" :md="12"  style="padding: 5px;">
-           <div class="searchBar">
+          <div class="searchBar">
             <el-row>
-              <el-col :span="12" class="TextAlign_L" style="font-weight: bold;font-size:14px;padding-left:20px;">最新司机订单信息</el-col>
-              <!-- <el-col :span="12" class="TextAlign_R" style="padding:0 20px;"><i class="el-icon-search CursorPointer" @click="showSearchConditionL"></i></el-col> -->
+              <el-col :span="12" class="TextAlign_L" style="font-weight: bold;font-size:14px;padding-left:20px;">最新路线信息</el-col>
             </el-row>
           </div>
           <div class="SearchCondition" v-if="SearchConditionR">
@@ -209,25 +216,20 @@
           </div>
           <div class="tableColumn">
             <el-row>
-              <el-col :span="4">日期</el-col>
-              <el-col :span="4">货物</el-col>
-              <el-col :span="4">发货地</el-col>
-              <el-col :span="4">收货地</el-col>
-              <el-col :span="3">车辆</el-col>
-              <el-col :span="2">重量</el-col>
+              <el-col :span="6">日期</el-col>
+              <el-col :span="3">车型</el-col>
+              <el-col :span="6">发出地</el-col>
+              <el-col :span="6">目的地</el-col>
               <el-col :span="3">手机</el-col>
             </el-row>
           </div>
           <div v-show="!searchedR" class="orderMarquee" id="orderMarqueeR">
             <div class="realList" id="realListR">
               <el-row class="orderItem" v-for="(order, idx) in latestOrderR" :key="idx">
-                <!-- <el-col :span="4">{{idx+1}}</el-col> -->
-                <el-col :span="4">{{order.dateTime}}</el-col>
-                <el-col :span="4">{{order.goods_name}}</el-col>
-                <el-col :span="4">{{order.origin}}</el-col>
-                <el-col :span="4">{{order.destination}}</el-col>
-                <el-col :span="3">{{order.type_name}}</el-col>
-                <el-col :span="2">{{order.fweight}}</el-col>
+                <el-col :span="6">{{order.add_date}}</el-col>
+                <el-col :span="3">{{order.car_type ? order.car_type : '/'}}</el-col>
+                <el-col :span="6">{{order.origin1}}{{order.origin2}}{{order.origin2}}</el-col>
+                <el-col :span="6">{{order.destination1}}{{order.destination2}}{{order.destination3}}</el-col>
                 <el-col :span="3">{{order.phone}}</el-col>
               </el-row>
             </div>
@@ -236,154 +238,28 @@
           <div v-if="searchedR" class="resultR">
             <div class="realList">
               <el-row class="orderItem" v-for="(order, idx) in resultOrderR" :key="idx">
-                <!-- <el-col :span="4">{{idx+1}}</el-col> -->
-                <el-col :span="4">{{order.dateTime}}</el-col>
-                <el-col :span="4">{{order.goods_name}}</el-col>
-                <el-col :span="4">{{order.origin}}</el-col>
-                <el-col :span="4">{{order.destination}}</el-col>
-                <el-col :span="3">{{order.type_name}}</el-col>
-                <el-col :span="2">{{order.fweight}}</el-col>
+                <el-col :span="6">{{order.add_date}}</el-col>
+                <el-col :span="3">{{order.car_type ? order.car_type : '/'}}</el-col>
+                <el-col :span="6">{{order.origin1}}{{order.origin2}}{{order.origin2}}</el-col>
+                <el-col :span="6">{{order.destination1}}{{order.destination2}}{{order.destination3}}</el-col>
                 <el-col :span="3">{{order.phone}}</el-col>
               </el-row>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </section>
-    <!-- <section class="MarginTB_80">
-      <el-row class="Padding_1 MarginTB_5">
-        <el-col :sm="24" :md="14">
-          <div style="width:90%;margin: 2rem auto;background:#fff;box-shadow:0 4px 80px -12px rgba(0,0,0,.1)">
-            <div style="background:#c7f2da;padding:20px 35px;color:#00c759">最新运单信息</div>
-            <div style="padding: 20px;">
-              <el-table
-                :data="latestOrder"
-                style="width: 100%">
-                <el-table-column
-                  prop="dateTime"
-                  label="日期"
-                  width="180">
-                </el-table-column>
-                <el-table-column
-                  prop="goods_name"
-                  label="货物名称"
-                  width="120">
-                </el-table-column>
-                <el-table-column
-                  prop="sh_address"
-                  label="收获地址">
-                </el-table-column>
-                <el-table-column
-                  prop="fh_address"
-                  label="发货地址">
-                </el-table-column>
-              </el-table>
-            </div>
-          </div>
-        </el-col>
-        <el-col :sm="24" :md="10" style="">
-          <video-player class="video-player-box" style="width: 80%;margin-left: 10%;"
-        ref="videoPlayer"
-        :options="playerOptions"/>
-        </el-col>
-      </el-row>
-    </section> -->
-    <!-- <section class="MarginTB_80"> -->
-    <!-- <section class="MarginTB_80" style="min-height: 400px;position:relative;background:url('../../static/image/ss2.jpg');overflow:hidden"> -->
-      <!-- <vue-particles
-        color="#fff"
-        :particleOpacity="0.7"
-        :particlesNumber="200"
-        shapeType="circle"
-        :particleSize="4"
-        linesColor="#fff"
-        :linesWidth="1"
-        :lineLinked="true"
-        :lineOpacity="0.4"
-        :linesDistance="150"
-        :moveSpeed="2"
-        :hoverEffect="true"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push"
-        class="lizi"
-      >
-      </vue-particles> -->
-      <!-- <el-row class="Padding_1 MarginTB_5">
-        <el-col :sm="24" :md="14" style="height: 300px;">
-          <div style="width:90%;margin-left:10%;background:#fff;box-shadow:0 4px 80px -12px rgba(0,0,0,.1)">
-            <div style="background:#c7f2da;padding:20px 35px;color:#00c759">打造优质物流交易网络平台</div>
-            <div style="padding: 20px;">
-              <el-row class="Padding_1">
-                <el-col :span="8">
-                  <el-progress type="circle" :percentage="100" status="text" color="#8e71c7">
-                    <span class="circleSpan">60亿</span>
-                    <span class="circleSpan">扶贫资金</span>
-                  </el-progress>
+              <el-row>
+                <el-col :span="24" class="TextAlign_R MarginT_10">
+                  <el-pagination
+                    v-if="resultOrderR.length > 0"
+                    @size-change="handleSizeChangeL"
+                    @current-change="handleCurrentChangeL"
+                    :current-page.sync="currentPageL"
+                    :page-size="5"
+                    layout="prev, pager, next, jumper"
+                    :total="sumR">
+                  </el-pagination>
                 </el-col>
-                <el-col :span="8">
-                  <el-progress type="circle" :percentage="100" status="text">
-                    <span class="circleSpan">3000+</span>
-                    <span class="circleSpan">物流车辆</span>
-                  </el-progress>
-                </el-col>
-                <el-col :span="8">
-                  <el-progress type="circle" :percentage="100" status="text" color="#f60">
-                    <span class="circleSpan">4500+</span>
-                    <span class="circleSpan">处理数据</span>
-                  </el-progress>
-                </el-col>
+                <el-col :span="24" v-if="resultOrderR.length == 0" class="MarginT_10"  style="background:#efefef;font-size:14px;padding:10px;">暂无订单</el-col>
               </el-row>
             </div>
           </div>
-        </el-col>
-        <el-col :sm="24" :md="10" style="height: 300px;">
-          <img style="width: 300px; height:300px;" src="https://www.sendwyre.com/assets/images/onoff_illo.png">
-        </el-col>
-      </el-row>
-      <el-row class="Padding_1 MarginTB_5">
-        <el-col :sm="24" :md="10" style="height: 300px;">
-          <img style="width: 300px; height:300px;" src="https://www.sendwyre.com/assets/images/liquidity_illo.png">
-        </el-col>
-        <el-col :sm="24" :md="14" style="height: 300px;">
-          <div style="width:90%;margin-right:10%;background:#fff;box-shadow:0 4px 80px -12px rgba(0,0,0,.1)">
-            <div style="background:#c7f2da;padding:20px 35px;color:#00c759">全程协同、透明、高效</div>
-            <div style="padding: 20px;">
-              <el-row class="Padding_1">
-                <el-col :span="8">
-                  <el-progress type="circle" :percentage="100" status="text" color="#fcaf17">
-                    <span class="circleSpan">8000+</span>
-                    <span class="circleSpan">条线路</span>
-                  </el-progress>
-                </el-col>
-                <el-col :span="8">
-                  <el-progress type="circle" :percentage="100" status="text" color="#ea66a6">
-                    <span class="circleSpan">280+</span>
-                    <span class="circleSpan">城市覆盖</span>
-                  </el-progress>
-                </el-col>
-                <el-col :span="8">
-                  <el-progress type="circle" :percentage="100" status="text" color="#aa2166">
-                    <span class="circleSpan">26+</span>
-                    <span class="circleSpan">物流园区</span>
-                  </el-progress>
-                </el-col>
-              </el-row>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </section> -->
-    <!-- video -->
-    <!-- <section class="MarginTB_80">
-      <h1 class="columnTit">
-        <span>快速了解无车承运</span>
-      </h1>
-      <el-row>
-        <el-col :span="24">
-          <video-player class="video-player-box" style="width: 80%;margin-left: 10%;"
-        ref="videoPlayer"
-        :options="playerOptions"/>
         </el-col>
       </el-row>
     </section> -->
@@ -461,12 +337,12 @@ export default {
         {title: '可视运输', content: '管控每个运输环节，透明化调度，过程和行驶轨迹', img: '../../static/image/Strongth_3.jpg'}
       ],
       CaseList: [
-        {title: '案例', img: '../../static/image/Case_1.jpg'},
-        {title: '案例', img: '../../static/image/Case_2.jpg'},
-        {title: '案例', img: '../../static/image/Case_3.jpg'},
-        {title: '案例', img: '../../static/image/Case_4.jpg'},
-        {title: '案例', img: '../../static/image/Case_5.jpg'},
-        {title: '案例', img: '../../static/image/Case_6.jpg'}
+        {title: '案例', img: '../../static/image/Case_8.jpg'},
+        {title: '案例', img: '../../static/image/Case_7.jpg'},
+        {title: '案例', img: '../../static/image/Case_9.jpg'},
+        {title: '案例', img: '../../static/image/Case_10.jpg'},
+        {title: '案例', img: '../../static/image/Case_11.jpg'},
+        {title: '案例', img: '../../static/image/Case_12.jpg'}
       ],
       SearchConditionL: true,
       SearchConditionR: true,
@@ -567,7 +443,11 @@ export default {
           weight: 1,
           phone: '18234567890'
         }
-      ]
+      ],
+      sumL: 0,
+      currentPageL: 1,
+      sumR: 0,
+      currentPageR: 1
     }
   },
   components: {
@@ -575,71 +455,86 @@ export default {
   },
   created () {
     this.getProvince()
-    this.getOrderLastestL()
+    // this.getOrderLastestL()
+    // this.getOrderLastestR()
     // setInterval(() => {
     //   this.getLatestOrderLastest()
     // }, 3000)
   },
-  mounted () {
-    var time = 50
-    // LEFT
-    var OrderMarqueeL = document.getElementById('orderMarqueeL')
-    var RealListL = document.getElementById('realListL')
-    var CopyListL = document.getElementById('CopyListL')
-    OrderMarqueeL.scrollTop = 0
-    setTimeout(() => {
-      CopyListL.innerHTML = RealListL.innerHTML
-    }, 1000)
-    function myScrollL () {
-      if (OrderMarqueeL.scrollTop >= RealListL.scrollHeight) {
-        OrderMarqueeL.scrollTop = 0
-      } else {
-        OrderMarqueeL.scrollTop++
-      }
-    }
-    var intervalL = setInterval(() => {
-      myScrollL()
-    }, time)
-    OrderMarqueeL.onmouseover = function () {
-      clearInterval(intervalL)
-    }
-    OrderMarqueeL.onmouseout = function () {
-      intervalL = setInterval(() => {
-        myScrollL()
-      }, time)
-    }
-    // RIGHT
-    var OrderMarqueeR = document.getElementById('orderMarqueeR')
-    var RealListR = document.getElementById('realListR')
-    var CopyListR = document.getElementById('CopyListR')
-    OrderMarqueeR.scrollTop = 0
-    CopyListR.innerHTML = RealListR.innerHTML
-    function myScrollR () {
-      if (OrderMarqueeR.scrollTop >= RealListR.scrollHeight) {
-        OrderMarqueeR.scrollTop = 0
-      } else {
-        OrderMarqueeR.scrollTop++
-      }
-    }
-    var intervalR = setInterval(() => {
-      myScrollR()
-    }, time)
-    OrderMarqueeR.onmouseover = function () {
-      clearInterval(intervalR)
-    }
-    OrderMarqueeR.onmouseout = function () {
-      intervalR = setInterval(() => {
-        myScrollR()
-      }, time)
-    }
-  },
+  // mounted () {
+  //   var time = 50
+  //   // LEFT
+  //   var OrderMarqueeL = document.getElementById('orderMarqueeL')
+  //   var RealListL = document.getElementById('realListL')
+  //   var CopyListL = document.getElementById('CopyListL')
+  //   OrderMarqueeL.scrollTop = 0
+  //   setTimeout(() => {
+  //     CopyListL.innerHTML = RealListL.innerHTML
+  //   }, 1000)
+  //   function myScrollL () {
+  //     if (OrderMarqueeL.scrollTop >= RealListL.scrollHeight) {
+  //       OrderMarqueeL.scrollTop = 0
+  //     } else {
+  //       OrderMarqueeL.scrollTop++
+  //     }
+  //   }
+  //   var intervalL = setInterval(() => {
+  //     myScrollL()
+  //   }, time)
+  //   OrderMarqueeL.onmouseover = function () {
+  //     clearInterval(intervalL)
+  //   }
+  //   OrderMarqueeL.onmouseout = function () {
+  //     intervalL = setInterval(() => {
+  //       myScrollL()
+  //     }, time)
+  //   }
+  //   // RIGHT
+  //   var OrderMarqueeR = document.getElementById('orderMarqueeR')
+  //   var RealListR = document.getElementById('realListR')
+  //   var CopyListR = document.getElementById('CopyListR')
+  //   OrderMarqueeR.scrollTop = 0
+  //   setTimeout(() => {
+  //     CopyListR.innerHTML = RealListR.innerHTML
+  //   }, 1000)
+  //   function myScrollR () {
+  //     if (OrderMarqueeR.scrollTop >= RealListR.scrollHeight) {
+  //       OrderMarqueeR.scrollTop = 0
+  //     } else {
+  //       OrderMarqueeR.scrollTop++
+  //     }
+  //   }
+  //   var intervalR = setInterval(() => {
+  //     myScrollR()
+  //   }, time)
+  //   OrderMarqueeR.onmouseover = function () {
+  //     clearInterval(intervalR)
+  //   }
+  //   OrderMarqueeR.onmouseout = function () {
+  //     intervalR = setInterval(() => {
+  //       myScrollR()
+  //     }, time)
+  //   }
+  // },
   methods: {
     cancelSearchCondition (property) {
       this[property] = false
     },
+    handleSizeChangeL () {
+      this.getOrderL()
+    },
+    handleCurrentChangeL () {
+      this.getOrderL()
+    },
+    handleSizeChangeR () {
+      this.getOrderR()
+    },
+    handleCurrentChangeR () {
+      this.getOrderR()
+    },
     getOrderL () {
       send({
-        name: '/tokens/orderList?fh=' + this.fareaL + '&sh=' + this.sareaL,
+        name: '/tokens/orderList?number=5&page_num=' + this.currentPageL + '&fh=' + this.fareaL + '&sh=' + this.sareaL,
         method: 'GET',
         data: {
         }
@@ -652,6 +547,7 @@ export default {
             })
           }
           this.resultOrderL = res.data.orderList
+          this.sumL = res.data.sum_number
         } else {
           this.$message({
             message: '验证码获取失败！',
@@ -664,19 +560,20 @@ export default {
     },
     getOrderR () {
       send({
-        name: '/tokens/orderList?fh=' + this.fareaR + '&sh=' + this.sareaR,
+        name: '/tokens/list/1/5?origin=' + this.fareaR + '&destination=' + this.sareaR,
         method: 'GET',
         data: {
         }
       }).then(res => {
-        if (res.data.code === 1) {
-          if (res.data.orderList.length > 0) {
-            res.data.orderList.map(item => {
-              item.dateTime = secondToFormat(item.zh_time.time)
+        if (res.data.respCode === '0') {
+          if (res.data.data.length > 0) {
+            res.data.data.map(item => {
+              // item.dateTime = secondToFormat(item.zh_time.time)
               item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
             })
           }
-          this.resultOrderR = res.data.orderList
+          this.resultOrderR = res.data.data
+          this.sumR = res.data.size
         } else {
           this.$message({
             message: '验证码获取失败！',
@@ -689,7 +586,7 @@ export default {
     },
     getOrderLastestL () {
       send({
-        name: '/tokens/orderList',
+        name: '/tokens/orderList?number=15&page_num=1',
         method: 'GET',
         data: {
         }
@@ -698,9 +595,34 @@ export default {
           res.data.orderList.map(item => {
             item.dateTime = secondToFormat(item.zh_time.time)
             item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
-            console.log(item.phone)
           })
           this.latestOrderL = res.data.orderList
+        } else {
+          this.$message({
+            message: '验证码获取失败！',
+            type: 'error'
+          })
+        }
+      }).catch((res) => {
+        console.log(res)
+      })
+    },
+    getOrderLastestR () {
+      send({
+        name: '/tokens/list/1/15',
+        method: 'GET',
+        data: {
+        }
+      }).then(res => {
+        if (res.data.respCode === '0') {
+          res.data.data.map(item => {
+            // item.dateTime = secondToFormat(item.zh_time.time)
+            item.phone = item.fmobile ? item.fmobile.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2') : '/'
+            console.log(item.phone)
+          })
+          this.latestOrderR = res.data.data
+          console.log(this.latestOrderR)
+          console.log(this.latestOrderR[1].destination1)
         } else {
           this.$message({
             message: '验证码获取失败！',
@@ -714,25 +636,47 @@ export default {
     changeFprovince (id, property) {
       console.log(id)
       this.getCity(id, property)
-      this.fcity = ''
-      this.farea = ''
+      if (property === 'fcityListR') {
+        this.fcityR = ''
+        this.fareaR = ''
+        this.fareaListR = []
+      } else {
+        this.fcityL = ''
+        this.fareaL = ''
+        this.fareaListL = []
+      }
     },
     changeFcity (id, property) {
       console.log(id)
       this.getArea(id, property)
-      this.farea = ''
+      if (property === 'fareaListR') {
+        this.fareaR = ''
+      } else {
+        this.fareaL = ''
+      }
     },
     changeFarea (id) {
       console.log(id)
     },
     changeSprovince (id, property) {
       this.getCity(id, property)
-      this.scity = ''
-      this.sarea = ''
+      if (property === 'scityListR') {
+        this.scityR = ''
+        this.sareaR = ''
+        this.sareaListR = []
+      } else {
+        this.scityL = ''
+        this.sareaL = ''
+        this.sareaListL = []
+      }
     },
     changeScity (id, property) {
       this.getArea(id, property)
-      this.sarea = ''
+      if (property === 'sareaListR') {
+        this.sareaR = ''
+      } else {
+        this.sareaL = ''
+      }
     },
     changeSarea (id) {
       console.log(id)
@@ -918,8 +862,9 @@ export default {
   margin: 0 auto;
 }
 .section_cases .hoverImg{
-  width: 100%;
-  height: 100%
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 .caseWrap:hover .hoverImg{
   transform: scale(1.5);
