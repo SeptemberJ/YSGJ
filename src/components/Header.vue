@@ -64,7 +64,7 @@
             </el-col>
           </el-row>
           <el-row v-if="ifShowSecond">
-            <el-col :span="24" class="TextAlign_L" style="position:relative;z-index:9999">
+            <el-col :span="24" class="TextAlign_L" style="position:relative;z-index:1999">
               <img class="barIcon" src="../../static/image/icons/back.png" @click="backMainMenu">
             </el-col>
             <el-row v-if="mobileMenuIdx == 2">
@@ -133,12 +133,10 @@ export default {
           this.changeCurMenu(key)
           break
         case '6':
-          window.location.href = 'http://116.62.171.244:8082/order/#/Login'
-          // window.open('http://www.jb51.net')
+          window.location.href = 'http://120.27.3.205/order/#/Login'
           break
         case '7':
-          window.location.href = 'http://116.62.171.244:8082/order/#/Sign'
-          // window.open('http://www.jb51.net')
+          window.location.href = 'http://120.27.3.205/order/#/Sign'
           break
         case '8':
           this.$router.push({name: 'Order'})

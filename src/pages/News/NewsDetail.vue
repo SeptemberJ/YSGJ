@@ -35,7 +35,6 @@ export default {
 </script>
 <style scoped>
 .NewsDetail{
-	/*padding: 80px 80px;*/
 	margin-top: 3rem;
 }
 .NewsDetail h1{
@@ -59,13 +58,6 @@ export default {
 .NewsContent p{
 	text-align: left;
 }
-/*.NewsContent p{
-	text-indent: 35px;
-	padding: 0px;
-  font-size: 18px;
-  line-height: 34px;
-	text-align: left;
-}*/
 .NewsContent img{
 	max-width: 100%;
 	margin: 30px auto;

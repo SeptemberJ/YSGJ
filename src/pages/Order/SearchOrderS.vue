@@ -33,7 +33,7 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="fareaR" placeholder="请选择区" size="small" @change="changeFarea">
+                <el-select v-model="fareaR" placeholder="请选择区" size="small">
                   <el-option
                     v-for="(item, idx) in fareaListR"
                     :key="idx"
@@ -66,7 +66,7 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="sareaR" placeholder="请选择区" size="small" @change="changeSarea">
+                <el-select v-model="sareaR" placeholder="请选择区" size="small">
                   <el-option
                     v-for="(item, idx) in sareaListR"
                     :key="idx"
@@ -78,7 +78,7 @@
             </el-row>
             <el-row  class="TextAlign_C">
               <el-col :span="24">
-                <el-button icon="el-icon-close" size="small" @click="cancelSearchCondition('searchedR')">取消搜素</el-button>
+                <el-button icon="el-icon-refresh" size="small" @click="cancelSearchCondition('searchedR')">重置</el-button>
                 <el-button type="primary" icon="el-icon-search" size="small" @click="searchOrder('right')">确认搜索</el-button>
               </el-col>
             </el-row>
@@ -185,6 +185,7 @@ export default {
   },
   created () {
     this.getOrderLastestR()
+    this.getProvince()
   },
   mounted () {
     var time = 50
@@ -267,7 +268,6 @@ export default {
         if (res.data.respCode === '0') {
           if (res.data.data.length > 0) {
             res.data.data.map(item => {
-              // item.dateTime = secondToFormat(item.zh_time.time)
               item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
             })
           }
@@ -315,7 +315,6 @@ export default {
       }).then(res => {
         if (res.data.respCode === '0') {
           res.data.data.map(item => {
-            // item.dateTime = secondToFormat(item.zh_time.time)
             item.phone = item.fmobile ? item.fmobile.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2') : '/'
             console.log(item.phone)
           })
@@ -333,7 +332,6 @@ export default {
       })
     },
     changeFprovince (id, property) {
-      console.log(id)
       this.getCity(id, property)
       if (property === 'fcityListR') {
         this.fcityR = ''
@@ -346,16 +344,12 @@ export default {
       }
     },
     changeFcity (id, property) {
-      console.log(id)
       this.getArea(id, property)
       if (property === 'fareaListR') {
         this.fareaR = ''
       } else {
         this.fareaL = ''
       }
-    },
-    changeFarea (id) {
-      console.log(id)
     },
     changeSprovince (id, property) {
       this.getCity(id, property)
@@ -376,9 +370,6 @@ export default {
       } else {
         this.sareaL = ''
       }
-    },
-    changeSarea (id) {
-      console.log(id)
     },
     getProvince () {
       send({

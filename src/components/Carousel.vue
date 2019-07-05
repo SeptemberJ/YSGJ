@@ -3,20 +3,7 @@
     <el-carousel-item v-for="(Carousel, idx) in CarouselList" :key="idx">
       <img ref="carouselImg" :src="Carousel.img" style="width: 100%;height:100%">
     </el-carousel-item>
-   <!--  <el-row class="searchBox">
-      <el-col :span="20">
-        <div class="inputBlock">
-          <el-input v-model="SearchOrder" clearable placeholder="请输入您要查询的运单号" style="border: 0px solid #fff !important;"></el-input>
-        </div>
-      </el-col>
-      <el-col class="searchBt CursorPointer" :span="4"><div @click="ToSearch">查询</div></el-col>
-    </el-row> -->
   </el-carousel>
- <!--  <el-carousel :interval="4000" type="card" height="400px" style="margin-top:40px;">
-    <el-carousel-item v-for="(Carousel, idx) in CarouselList" :key="idx">
-      <img ref="carouselImg" :src="Carousel.img" style="width: 100%;">
-    </el-carousel-item>
-  </el-carousel> -->
 </template>
 
 <script>
@@ -27,31 +14,19 @@ export default {
     return {
       CurIndex: 0,
       SearchOrder: '',
-      carouseHeight: '350px', // '293px',
+      carouseHeight: '350px',
       CarouselList: [
-        // {img: '../../static/image/Carousel_4.jpg'},
         {img: '../../static/image/banner2.jpg'},
         {img: '../../static/image/banner3.jpeg'},
         {img: '../../static/image/banner4.jpeg'}
       ]
     }
   },
-  mounted () {
-    // setTimeout(() => {
-    //   this.selfAdaption(0)
-    // }, 500)
-  },
-  created () {
-    // window.onresize = () => {
-    //   this.selfAdaption(0)
-    // }
-  },
   methods: {
     ...mapActions([
       'changeCurMenu'
     ]),
     changeCarousel (idx) {
-      // this.selfAdaption(idx)
     },
     selfAdaption (idx) {
       let windowWidth = document.documentElement.clientWidth
@@ -75,7 +50,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .searchBox{
   width: 70%;
@@ -139,7 +113,4 @@ export default {
   background: transparent !important;
 }
 
-/*.el-carousel__item--card{
-  width: 60% !important;
-}*/
 </style>

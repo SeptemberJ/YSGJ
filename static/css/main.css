@@ -19,11 +19,7 @@ body{
 .wrap{
 	position: relative;
   top: 60px;
-  /*margin-top: 60px;*/
 }
-/*html{
-	font-size: 62.5%;
-}*/
 @media screen and (min-width: 320px) {
 	html{
 		font-size: 14px;
@@ -207,4 +203,3 @@ li p{
 .el-message--warning{
 	z-index:9999999 !important;
 }
-/*process*/

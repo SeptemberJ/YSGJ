@@ -1,9 +1,7 @@
 <template>
   <div class="AboutUs wrap">
     <section class="Banner">
-      <!-- <img src="../../static/image/aboutUsbg.jpg"> -->
       <img src="../../static/image/AboutUs.jpg">
-      <!-- <img src="https://www.fordfound.org/media/3894/stairs_no-lights_hero.jpg?crop=0,0.21940928270042195,0,0.21800281293952181&width=1600&height=600&rnd=131831407980000000&cropmode=percentage"> -->
     </section>
     <section class="Company sectionWrap">
       <h1 class="TextAlign_C columnTit">无车承运</h1>
@@ -74,10 +72,6 @@ export default {
 .TextBlock{
   margin-top: 3rem;
   padding-bottom: 4rem;
-  /*position: absolute;
-  top: 50%;
-  top: 50%;
-  transform: translate(0, -50%);*/
   text-align: center;
 }
 .Culture p{

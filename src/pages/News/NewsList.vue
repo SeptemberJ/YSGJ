@@ -6,10 +6,6 @@
 					<el-col :span="6" style="height: 100%">
 						<div class="grid-content bg-purple" style="height: 100%">
 							<el-row class="LeftBar">
-								<!-- <el-col :span="6" class="DateBar">
-									<h4>{{NewsItem.month}}</h4>
-									<p>{{NewsItem.year}}</p>
-								</el-col> -->
 								<el-col :span="24" style="height: 100%">
 									<img :src="NewsItem.img">
 								</el-col>
@@ -23,36 +19,8 @@
 						</div>
 					</el-col>
 				</el-row>
-				<!-- <el-container class="NewsItem">
-					<el-aside width="400px">
-						<el-row class="LeftBar">
-							<el-col :span="6" class="DateBar">
-								<h4>{{NewsItem.month}}</h4>
-								<p>{{NewsItem.year}}</p>
-							</el-col>
-							<el-col :span="18">
-								<img style="width: 100%;" :src="NewsItem.img">
-							</el-col>
-						</el-row>
-					</el-aside>
-					<el-main class="RighBar">
-						<h2>{{NewsItem.tit}}</h2>
-						<p>{{NewsItem.content}}</p>
-					</el-main>
-				</el-container> -->
 			</div>
 		</div>
-		<section class="pagination block">
-			<el-pagination
-				small
-				@size-change="handleSizeChange"
-				@current-change="handleCurrentChange"
-				:current-page.sync="currentPage"
-				:page-size="pageSize"
-				layout="total, prev, pager, next"
-				:total="total">
-			</el-pagination>
-		</section>
 	</div>
 </template>
 
@@ -62,7 +30,7 @@ export default {
   data () {
     return {
       total: 50,
-      pageSize: 10, // 每页条数
+      pageSize: 10,
       currentPage: 1,
       NewsList: [
         {id: 1, tit: '为何唯物主义者晚年时会说出“一切都是安排好的”呢', month: 11, year: 2018, content: '爱因斯坦绝对是历史上最伟大的科学家之一，如今我们在高中课本以及初中课本上学到的很多知识，都来源于爱因斯坦的研究跟发现，比如说相对论以及能量守恒定律等等，如果没有爱因斯坦以及牛顿等伟大的科学家的话，人类目前不可能处在这样的一种高速发展的模式当中，也因此科学家的地位在人们的心目中是非常高的，几乎是科学家说什么那么事实就是什么！', img: '../../../static/image/News_1.jpeg'},
@@ -78,12 +46,6 @@ export default {
   methods: {
     ToDetail () {
       this.$router.push({name: 'NewsDetail'})
-    },
-    handleSizeChange () {
-
-    },
-    handleCurrentChange () {
-
     }
   }
 }

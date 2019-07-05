@@ -36,8 +36,6 @@ export default {
   data () {
     return {
     }
-  },
-  methods: {
   }
 }
 </script>
@@ -46,8 +44,6 @@ export default {
 .FooterBox{
   padding: 2rem 2rem 0px 2rem;
   background: #e0b32b;
-  /*background: #fff200;*/
-  /*background-image: 'https://www.vi.ai/wp-content/uploads/home/circle-1.svg';*/
 }
 .FooterBox p{
   margin-top: 1rem;
@@ -55,12 +51,6 @@ export default {
   color: #000;
   font-family: 'Lato';
 }
-/*.FooterBox p{
-  margin-top: 16px;
-  font-size: 14px;
-  color: #000;
-  font-family: 'Lato';
-}*/
 .logoBox{
   width: 140px;
   height: 66px;

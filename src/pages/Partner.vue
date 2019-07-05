@@ -53,8 +53,6 @@ export default {
 </script>
 <style scoped>
 .Partner{
-	/*margin: 80px 80px;*/
-	/*background: #f4f4f4;*/
 }
 .investmentIntroduction p{
   text-indent: 35px;
@@ -63,7 +61,6 @@ export default {
   line-height: 34px;
 }
 .PartnerList{
-	/*padding: 80px 80px;*/
 	background: #f7f6f2;
 }
 .CompanyItem{

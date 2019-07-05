@@ -21,7 +21,6 @@ export default {
 </script>
 <style scoped>
 .ProductDetail{
-	/*margin: 80px 80px;*/
 }
 .ProductDetail h1{
 	font-size: 36px;
@@ -33,13 +32,6 @@ export default {
 .ProductContent p{
 	text-align: left;
 }
-/*.ProductContent p{
-	text-indent: 35px;
-	padding: 0px;
-  font-size: 18px;
-  line-height: 34px;
-	text-align: left;
-}*/
 .ProductContent img{
 	max-width: 100%;
 	margin: 30px auto;

@@ -6,7 +6,6 @@
           <div class="searchBar">
             <el-row>
               <el-col :span="12" class="TextAlign_L" style="font-weight: bold;font-size:14px;padding-left:20px;">最新货主订单信息</el-col>
-              <!-- <el-col :span="12" class="TextAlign_R" style="padding:0 20px;"><i class="el-icon-search CursorPointer" @click="showSearchConditionL"></i></el-col> -->
             </el-row>
           </div>
           <div class="SearchCondition" v-if="SearchConditionL">
@@ -33,7 +32,7 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="fareaL" placeholder="请选择区" size="small" @change="changeFarea">
+                <el-select v-model="fareaL" placeholder="请选择区" size="small">
                   <el-option
                     v-for="(item, idx) in fareaListL"
                     :key="idx"
@@ -66,7 +65,7 @@
                 </el-select>
               </el-col>
               <el-col :span="6">
-                <el-select v-model="sareaL" placeholder="请选择区" size="small" @change="changeSarea">
+                <el-select v-model="sareaL" placeholder="请选择区" size="small">
                   <el-option
                     v-for="(item, idx) in sareaListL"
                     :key="idx"
@@ -78,7 +77,7 @@
             </el-row>
             <el-row  class="TextAlign_C">
               <el-col :span="24">
-                <el-button icon="el-icon-close" size="small" @click="cancelSearchCondition('searchedL')">取消搜素</el-button>
+                <el-button icon="el-icon-refresh" size="small" @click="cancelSearchCondition('searchedL')">重置</el-button>
                 <el-button type="primary" icon="el-icon-search" size="small" @click="searchOrder('left')">确认搜索</el-button>
               </el-col>
             </el-row>
@@ -89,7 +88,6 @@
               <el-col :span="4">货物</el-col>
               <el-col :span="5">发货地</el-col>
               <el-col :span="5">收货地</el-col>
-              <!-- <el-col :span="3">车辆</el-col> -->
               <el-col :span="2">重量</el-col>
               <el-col :span="3">手机</el-col>
             </el-row>
@@ -177,6 +175,7 @@ export default {
   },
   created () {
     this.getOrderLastestL()
+    this.getProvince()
   },
   mounted () {
     var time = 50
@@ -230,18 +229,18 @@ export default {
         data: {
         }
       }).then(res => {
-        if (res.data.code === 1) {
-          if (res.data.orderList.length > 0) {
-            res.data.orderList.map(item => {
+        if (res.data.respCode === '0') {
+          if (res.data.data.length > 0) {
+            res.data.data.map(item => {
               item.dateTime = secondToFormat(item.zh_time.time)
               item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
             })
           }
-          this.resultOrderL = res.data.orderList
-          this.sumL = res.data.sum_number
+          this.resultOrderL = res.data.data
+          this.sumL = res.data.size
         } else {
           this.$message({
-            message: '验证码获取失败！',
+            message: '信息获取失败！',
             type: 'error'
           })
         }
@@ -259,7 +258,6 @@ export default {
         if (res.data.respCode === '0') {
           if (res.data.data.length > 0) {
             res.data.data.map(item => {
-              // item.dateTime = secondToFormat(item.zh_time.time)
               item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
             })
           }
@@ -282,15 +280,15 @@ export default {
         data: {
         }
       }).then(res => {
-        if (res.data.code === 1) {
-          res.data.orderList.map(item => {
-            item.dateTime = secondToFormat(item.zh_time.time)
+        if (res.data.respCode === '0') {
+          res.data.data.map(item => {
+            item.dateTime = item.zh_time // secondToFormat(item.zh_time.time)
             item.phone = item.fh_telephone.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2')
           })
-          this.latestOrderL = res.data.orderList
+          this.latestOrderL = res.data.data
         } else {
           this.$message({
-            message: '验证码获取失败！',
+            message: '信息获取失败！',
             type: 'error'
           })
         }
@@ -307,13 +305,9 @@ export default {
       }).then(res => {
         if (res.data.respCode === '0') {
           res.data.data.map(item => {
-            // item.dateTime = secondToFormat(item.zh_time.time)
             item.phone = item.fmobile ? item.fmobile.replace(/^(\d{3})\d{4}(\d{4})$/, '$1****$2') : '/'
-            console.log(item.phone)
           })
           this.latestOrderR = res.data.data
-          console.log(this.latestOrderR)
-          console.log(this.latestOrderR[1].destination1)
         } else {
           this.$message({
             message: '验证码获取失败！',
@@ -325,7 +319,6 @@ export default {
       })
     },
     changeFprovince (id, property) {
-      console.log(id)
       this.getCity(id, property)
       if (property === 'fcityListR') {
         this.fcityR = ''
@@ -338,16 +331,12 @@ export default {
       }
     },
     changeFcity (id, property) {
-      console.log(id)
       this.getArea(id, property)
       if (property === 'fareaListR') {
         this.fareaR = ''
       } else {
         this.fareaL = ''
       }
-    },
-    changeFarea (id) {
-      console.log(id)
     },
     changeSprovince (id, property) {
       this.getCity(id, property)
@@ -368,9 +357,6 @@ export default {
       } else {
         this.sareaL = ''
       }
-    },
-    changeSarea (id) {
-      console.log(id)
     },
     getProvince () {
       send({
@@ -475,7 +461,6 @@ export default {
   font-size: 14px;
   color: #909399;
   font-weight: bold;
-  /*background: rgb(199, 242, 218);*/
 }
 .orderMarquee{
   width: 100%;

@@ -27,7 +27,6 @@ export default new Vuex.Store({
   state,
   modules: {
   },
-  // getters,
   actions,
   mutations,
   // strict: debug,
